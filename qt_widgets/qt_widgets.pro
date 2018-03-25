@@ -27,17 +27,20 @@ SOURCES += \
         main.cpp \
         mywidget.cpp \
     subwidgets.cpp \
-    myui.cpp
+    myui.cpp \
+    myui2.cpp
 
 HEADERS += \
         mywidget.h \
     subwidgets.h \
-    myui.h
+    myui.h \
+    myui2.h
 
 CONFIG += C++11
 
 FORMS += \
-    myui.ui
+    myui.ui \
+    myui2.ui
 
 RESOURCES += \
     myresource.qrc

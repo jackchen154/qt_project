@@ -7,3 +7,5 @@ qt_widgets/*.Release
 
 *.Debug
 *.Release
+qt_widgets/Makefile.Debug
+qt_widgets/Makefile.Release

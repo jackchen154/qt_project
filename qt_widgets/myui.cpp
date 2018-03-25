@@ -8,6 +8,7 @@ myui::myui(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::myui)
 {
+
     ui->setupUi(this);
     //行编辑器的设置
     ui->password->setTextMargins(12,0,0,0);//设定行编辑器显示文本的位置(像素单位)
@@ -21,13 +22,13 @@ myui::myui(QWidget *parent) :
 
     //Qlabel操作
     //A：
-    ui->label_tupain->setPixmap(QPixmap("://image/meinv.png"));//给label放上一张图片
-    ui->label_tupain->setScaledContents(true);//图片自适应
+    //ui->label_tupain->setPixmap(QPixmap("://image/meinv.png"));//给label放上一张图片
+    //ui->label_tupain->setScaledContents(true);//图片自适应
     //B：
-    QMovie *gifdong = new QMovie("://image/huochairen.gif");//添加一个动画
-    ui->label_gifdonghua->setMovie(gifdong);//将动画应用到标签
-    ui->label_gifdonghua->setScaledContents(true);//自适应窗口
-    gifdong->start();//启动动画
+    //QMovie *gifdong = new QMovie("://image/huochairen.gif");//添加一个动画
+    //ui->label_gifdonghua->setMovie(gifdong);//将动画应用到标签
+   // ui->label_gifdonghua->setScaledContents(true);//自适应窗口
+    //gifdong->start();//启动动画
     //C：
     ui->label_html->setText("<h1><a href=\""
                             "https://www.baidu.com\">"
@@ -37,7 +38,7 @@ myui::myui(QWidget *parent) :
     //进度条设置部分
     ui->jindutiao->setMinimum(0);//设定最大值
     ui->jindutiao->setMaximum(100);//设定最小值
-    ui->jindutiao->setValue(13);//设定当前值
+    //ui->jindutiao->setValue(13);//设定当前值
 
     //网页浏览器控件部分
 }
