@@ -1,2 +1,9 @@
-qt_widgets/debug
-*.user
+qt_widgets/Debug/*
+qt_widgets/release/*
+qt_widgets/image/*
+qt_widgets/*.user
+qt_widgets/*.Debug
+qt_widgets/*.Release
+
+*.Debug
+*.Release

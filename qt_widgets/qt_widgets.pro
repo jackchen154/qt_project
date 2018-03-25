@@ -38,3 +38,6 @@ CONFIG += C++11
 
 FORMS += \
     myui.ui
+
+RESOURCES += \
+    myresource.qrc
