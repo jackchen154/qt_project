@@ -28,19 +28,24 @@ SOURCES += \
         mywidget.cpp \
     subwidgets.cpp \
     myui.cpp \
-    myui2.cpp
+    myui2.cpp \
+    zidgyikongjian.cpp \
+    dialog.cpp
 
 HEADERS += \
         mywidget.h \
     subwidgets.h \
     myui.h \
-    myui2.h
+    myui2.h \
+    zidgyikongjian.h \
+    dialog.h
 
 CONFIG += C++11
 
 FORMS += \
     myui.ui \
-    myui2.ui
+    myui2.ui \
+    dialog.ui
 
 RESOURCES += \
     myresource.qrc

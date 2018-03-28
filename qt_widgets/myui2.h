@@ -2,7 +2,8 @@
 #define MYUI2_H
 
 #include <QMainWindow>
-
+#include<QMouseEvent>
+#include<QLabel>
 namespace Ui {
 class myui2;
 }
@@ -17,6 +18,8 @@ public:
 
 private:
     Ui::myui2 *ui;
+
+
 };
 
 #endif // MYUI2_H
