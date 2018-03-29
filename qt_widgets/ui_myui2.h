@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'myui2.ui'
 **
-** Created by: Qt User Interface Compiler version 5.8.0
+** Created by: Qt User Interface Compiler version 5.9.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -19,7 +19,9 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <zidgyikongjian.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -27,29 +29,35 @@ class Ui_myui2
 {
 public:
     QWidget *centralwidget;
+    QVBoxLayout *verticalLayout;
+    QLabel *labelshowmouse;
     QPushButton *pushButton_4;
     QLineEdit *lineEdit;
-    QLabel *label_3;
-    QLineEdit *lineEdit_2;
     QLabel *label_2;
-    QLabel *labelshowmouse;
+    QLineEdit *lineEdit_2;
+    QLabel *label_3;
+    zidgyikongjian *widget;
     QMenuBar *menubar;
 
     void setupUi(QMainWindow *myui2)
     {
         if (myui2->objectName().isEmpty())
             myui2->setObjectName(QStringLiteral("myui2"));
-        myui2->resize(300, 471);
+        myui2->resize(300, 433);
         myui2->setMinimumSize(QSize(300, 250));
         myui2->setMaximumSize(QSize(500, 16777215));
         myui2->setBaseSize(QSize(999, 456));
         centralwidget = new QWidget(myui2);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        centralwidget->setMinimumSize(QSize(300, 50));
-        centralwidget->setMaximumSize(QSize(500, 300));
+        verticalLayout = new QVBoxLayout(centralwidget);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        labelshowmouse = new QLabel(centralwidget);
+        labelshowmouse->setObjectName(QStringLiteral("labelshowmouse"));
+
+        verticalLayout->addWidget(labelshowmouse);
+
         pushButton_4 = new QPushButton(centralwidget);
         pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
-        pushButton_4->setGeometry(QRect(9, 58, 84, 34));
         QFont font;
         font.setFamily(QStringLiteral("Aharoni"));
         font.setPointSize(20);
@@ -81,21 +89,34 @@ public:
 "}\n"
 "\n"
 ""));
+
+        verticalLayout->addWidget(pushButton_4);
+
         lineEdit = new QLineEdit(centralwidget);
         lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(39, 147, 133, 20));
-        label_3 = new QLabel(centralwidget);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setGeometry(QRect(9, 222, 24, 16));
-        lineEdit_2 = new QLineEdit(centralwidget);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(39, 222, 133, 20));
+
+        verticalLayout->addWidget(lineEdit);
+
         label_2 = new QLabel(centralwidget);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(9, 147, 24, 16));
-        labelshowmouse = new QLabel(centralwidget);
-        labelshowmouse->setObjectName(QStringLiteral("labelshowmouse"));
-        labelshowmouse->setGeometry(QRect(140, 30, 111, 91));
+
+        verticalLayout->addWidget(label_2);
+
+        lineEdit_2 = new QLineEdit(centralwidget);
+        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
+
+        verticalLayout->addWidget(lineEdit_2);
+
+        label_3 = new QLabel(centralwidget);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        verticalLayout->addWidget(label_3);
+
+        widget = new zidgyikongjian(centralwidget);
+        widget->setObjectName(QStringLiteral("widget"));
+
+        verticalLayout->addWidget(widget);
+
         myui2->setCentralWidget(centralwidget);
         lineEdit->raise();
         label_3->raise();
@@ -103,9 +124,10 @@ public:
         label_2->raise();
         pushButton_4->raise();
         labelshowmouse->raise();
+        widget->raise();
         menubar = new QMenuBar(myui2);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 300, 23));
+        menubar->setGeometry(QRect(0, 0, 300, 25));
         myui2->setMenuBar(menubar);
 
         retranslateUi(myui2);
@@ -116,10 +138,10 @@ public:
     void retranslateUi(QMainWindow *myui2)
     {
         myui2->setWindowTitle(QApplication::translate("myui2", "MainWindow", Q_NULLPTR));
-        pushButton_4->setText(QApplication::translate("myui2", "\347\241\256\345\256\232", Q_NULLPTR));
-        label_3->setText(QApplication::translate("myui2", "\346\213\211\346\213\211", Q_NULLPTR));
-        label_2->setText(QApplication::translate("myui2", "\346\213\211\346\213\211", Q_NULLPTR));
         labelshowmouse->setText(QApplication::translate("myui2", "TextLabel", Q_NULLPTR));
+        pushButton_4->setText(QApplication::translate("myui2", "\347\241\256\345\256\232", Q_NULLPTR));
+        label_2->setText(QApplication::translate("myui2", "\346\213\211\346\213\211", Q_NULLPTR));
+        label_3->setText(QApplication::translate("myui2", "\346\213\211\346\213\211", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -11,7 +11,8 @@ zidgyikongjian::zidgyikongjian(QWidget *parent) : QWidget(parent)
   QSpinBox *spinbox = new QSpinBox(this);
   QSlider *slider = new QSlider(Qt::Horizontal,this);
   //QLabel *labelshowmouse = new QLabel(this);
-
+  QLabel *label =new QLabel(this);
+  label->setText("dfdfdf");
  QHBoxLayout *shuiping = new QHBoxLayout();//创建一个水平布局(因为要在UI中引用所以不指定父对象)
   shuiping->addWidget(spinbox);
   shuiping->addWidget(slider);//将部件加入布局器
