@@ -40,7 +40,7 @@ HEADERS += \
     zidgyikongjian.h \
     dialog.h
 
-CONFIG += C++11
+CONFIG += C++14
 
 FORMS += \
     myui.ui \

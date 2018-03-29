@@ -20,10 +20,20 @@ public:
 
 private:
     Ui::Dialog *ui;
-    void mousePressEvent(QMouseEvent *ev);
-    void mouseReleaseEvent(QMouseEvent *ev);
-    void mouseMoveEvent(QMouseEvent *ev);
-
+    int x0,x1,y0,y1;
+    //鼠标事件
+    void mousePressEvent(QMouseEvent *ev);//鼠标按下事件
+    void mouseReleaseEvent(QMouseEvent *ev);//鼠标放开事件
+    void mouseMoveEvent(QMouseEvent *ev);//鼠标移动事件
+    //窗口事件
+    void enterEvent(QEvent *event);//进入窗口事件
+    void leaveEvent(QEvent *event);//离开窗口事件
+    //键盘事件
+    void keyPressEvent(QKeyEvent *);
+    //定时器事件
+    void timerEvent(QTimerEvent *event);
+    int timerID;//定时器标识符
+    int timerbuf=0;//定时器缓存
 };
 
 #endif // DIALOG_H

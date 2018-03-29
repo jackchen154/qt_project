@@ -21,7 +21,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include <zidgyikongjian.h>
+#include "zidgyikongjian.h"
 
 QT_BEGIN_NAMESPACE
 

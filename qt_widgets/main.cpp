@@ -12,8 +12,8 @@ int main(int argc, char *argv[])
     //mainwindow.show();
     //myui ui;
     //ui.show();
-    myui2 ui2;
-    ui2.show();
+    //myui2 ui2;
+    //ui2.show();
     Dialog duihuak;
     duihuak.show();
     return a.exec();
