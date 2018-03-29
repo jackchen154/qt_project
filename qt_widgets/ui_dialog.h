@@ -23,6 +23,8 @@ class Ui_Dialog
 {
 public:
     QLabel *labelshowmouse;
+    QLabel *mov;
+    QLabel *realdata;
 
     void setupUi(QDialog *Dialog)
     {
@@ -32,6 +34,16 @@ public:
         labelshowmouse = new QLabel(Dialog);
         labelshowmouse->setObjectName(QStringLiteral("labelshowmouse"));
         labelshowmouse->setGeometry(QRect(20, 80, 241, 161));
+        mov = new QLabel(Dialog);
+        mov->setObjectName(QStringLiteral("mov"));
+        mov->setGeometry(QRect(130, 140, 21, 31));
+        mov->setStyleSheet(QLatin1String("QLabel\n"
+"{\n"
+" background-color:rgb(255, 0, 0);\n"
+"}"));
+        realdata = new QLabel(Dialog);
+        realdata->setObjectName(QStringLiteral("realdata"));
+        realdata->setGeometry(QRect(10, 30, 111, 21));
 
         retranslateUi(Dialog);
 
@@ -42,6 +54,8 @@ public:
     {
         Dialog->setWindowTitle(QApplication::translate("Dialog", "Dialog", Q_NULLPTR));
         labelshowmouse->setText(QApplication::translate("Dialog", "TextLabel", Q_NULLPTR));
+        mov->setText(QApplication::translate("Dialog", "TextLabel", Q_NULLPTR));
+        realdata->setText(QApplication::translate("Dialog", "TextLabel", Q_NULLPTR));
     } // retranslateUi
 
 };

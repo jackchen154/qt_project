@@ -14,6 +14,8 @@ class Dialog : public QDialog
 
 public:
     explicit Dialog(QWidget *parent = 0);
+    int movdata=0;
+
     ~Dialog();
 
 private:
