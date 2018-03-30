@@ -1,24 +1,32 @@
 #include "dialog.h"
 #include "ui_dialog.h"
 #include <QKeyEvent>
- using namespace std::chrono;
+//using namespace std::chrono;
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
 {
-    timerID = this->startTimer(seconds(1),Qt::PreciseTimer);//打开定时器
+    timerID = this->startTimer(1000,Qt::PreciseTimer);//打开定时器
 
     ui->setupUi(this);
     ui->labelshowmouse->setStyleSheet("background-color:green;color:bule;font:75 15pt Aharoni;");
     ui->labelshowmouse->setMinimumSize(200,200);
     ui->realdata->setStyleSheet("color:bule;font:75 15pt Aharoni;");
     ui->realdata->setMinimumWidth(200);
-    ui->mov->move(133,169);
+
 
     //ui->labelshowmouse->setMouseTracking(true);
     //this->setMouseTracking(true);
+    //边界初始化
+    this->x0 = ui->labelshowmouse->geometry().x();
+    this->x1 = ui->labelshowmouse->geometry().x()+ui->labelshowmouse->geometry().width() - ui->mov->geometry().width();
+    this->y0 = ui->labelshowmouse->geometry().y();
+    this->y1 = ui->labelshowmouse->geometry().y()+ui->labelshowmouse->geometry().height() - ui->mov->geometry().height();
 
+    this->x00 = ui->labelshowmouse->geometry().x()+ui->labelshowmouse->geometry().width()/2 - (ui->mov->geometry().width())/2;
+    this->y00 = ui->labelshowmouse->geometry().y()+ui->labelshowmouse->geometry().height()/2 - (ui->mov->geometry().height())/2;
+    ui->mov->move(x00,y00);//原点设置
 }
 
 Dialog::~Dialog()
@@ -49,38 +57,39 @@ void Dialog::mousePressEvent(QMouseEvent *ev)
 }
 
 
+//边界控制
 void Dialog::mouseMoveEvent(QMouseEvent *ev)
 {
 
-    //int x0,x1,y0,y1;
-    this->x0 = ui->labelshowmouse->geometry().x();
-    this->x1 = ui->labelshowmouse->geometry().x()+ui->labelshowmouse->geometry().width() - ui->mov->geometry().width();
-    this->y0 = ui->labelshowmouse->geometry().y();
-    this->y1 = ui->labelshowmouse->geometry().y()+ui->labelshowmouse->geometry().height() - ui->mov->geometry().height();
-    QString str_zhuizong =QString("mov:(X:%1 Y:%2)").arg(ev->x()).arg(ev->y());
-    ui->labelshowmouse->setText(str_zhuizong);
-    ui->mov->move(ev->x(),ev->y());
-    if(ev->y()<= y0 )
+    ui->labelshowmouse->setText(QString("mov:(X:%1 Y:%2)").arg(ev->x()).arg(ev->y()));
+    ui->realdata2->setText(QString("real:(X:%1 Y:%2)").arg(ev->x() - x00).arg(ev->y() - y00));//绝对坐标
+    ui->mov->move(ev->x(),ev->y());//跟随光标移动
+
+    if(ev->y()<= y0 )//超出上边界
     {
        ui->mov->move(ev->x(),y0);
+       ui->realdata2->setText(QString("real:(X:%1 Y:%2)").arg(ev->x() - x00).arg(y0-y00));
     }
-    else if(ev->y() >= y1)
+    else if(ev->y() >= y1)//超出下边界
     {
        ui->mov->move(ev->x(),y1);
+       ui->realdata2->setText(QString("real:(X:%1 Y:%2)").arg(ev->x() - x00).arg(y1-y00));
     }
-    if(ev->x()<=x0)
+    if(ev->x()<=x0)//超出左边界
     {
         ui->mov->move(x0,ev->y());
+
         if(ev->y()<=y0)
         {
            ui->mov->move(x0,y0);
+
         }
         else if(ev->y()>=y1)
         {
            ui->mov->move(x0,y1);
         }
     }
-    else if(ev->x()>=x1)
+    else if(ev->x()>=x1)//超出右边界
     {
 
         ui->mov->move(x1,ev->y());
@@ -102,7 +111,8 @@ void Dialog::mouseReleaseEvent(QMouseEvent *ev)
     int y=ev->y();
     QString str_zhuizong =QString("fangkai:(X:%1 Y:%2)").arg(x).arg(y);
     ui->labelshowmouse->setText(str_zhuizong);
-    ui->mov->move(133,169);
+    ui->mov->move(x00,y00);
+    ui->realdata2->setText(QString("real:(X:%1 Y:%2)").arg(ev->x() - x00).arg(ev->y()-y00));
 }
 
 void Dialog::enterEvent(QEvent *event)

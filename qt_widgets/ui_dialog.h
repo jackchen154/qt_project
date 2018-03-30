@@ -25,6 +25,7 @@ public:
     QLabel *labelshowmouse;
     QLabel *mov;
     QLabel *realdata;
+    QLabel *realdata2;
 
     void setupUi(QDialog *Dialog)
     {
@@ -44,6 +45,9 @@ public:
         realdata = new QLabel(Dialog);
         realdata->setObjectName(QStringLiteral("realdata"));
         realdata->setGeometry(QRect(10, 30, 111, 21));
+        realdata2 = new QLabel(Dialog);
+        realdata2->setObjectName(QStringLiteral("realdata2"));
+        realdata2->setGeometry(QRect(240, 40, 111, 21));
 
         retranslateUi(Dialog);
 
@@ -56,6 +60,7 @@ public:
         labelshowmouse->setText(QApplication::translate("Dialog", "TextLabel", Q_NULLPTR));
         mov->setText(QApplication::translate("Dialog", "TextLabel", Q_NULLPTR));
         realdata->setText(QApplication::translate("Dialog", "TextLabel", Q_NULLPTR));
+        realdata2->setText(QApplication::translate("Dialog", "TextLabel", Q_NULLPTR));
     } // retranslateUi
 
 };
