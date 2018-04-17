@@ -38,7 +38,8 @@ HEADERS += \
     myui.h \
     myui2.h \
     zidgyikongjian.h \
-    dialog.h
+    dialog.h \
+    dll/TxPrnMod.h
 
 CONFIG += C++11
 
@@ -49,3 +50,7 @@ FORMS += \
 
 RESOURCES += \
     myresource.qrc
+
+
+
+
