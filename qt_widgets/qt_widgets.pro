@@ -38,7 +38,8 @@ HEADERS += \
     myui.h \
     myui2.h \
     zidgyikongjian.h \
-    dialog.h
+    dialog.h \
+    dll/TxPrnMod.h
 
 CONFIG += C++11
 
@@ -50,4 +51,10 @@ FORMS += \
 RESOURCES += \
     myresource.qrc
 
+<<<<<<< HEAD
 LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/TxPrnMod.dll
+=======
+
+
+
+>>>>>>> 1765854ceb900a7d5533fea533f7dd1bf4a1f619
