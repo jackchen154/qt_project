@@ -9,3 +9,6 @@ qt_widgets/*.Release
 *.Release
 qt_widgets/Makefile.Debug
 qt_widgets/Makefile.Release
+*.exe
+*.exe
+*.exe
