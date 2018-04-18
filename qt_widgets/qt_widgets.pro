@@ -49,3 +49,5 @@ FORMS += \
 
 RESOURCES += \
     myresource.qrc
+
+LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/TxPrnMod.dll
