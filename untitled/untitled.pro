@@ -34,10 +34,10 @@ HEADERS  += \
 
 
 
-LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/dll/TxPrnMod.dll
-LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/dll/termb.dll
-LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/dll/DPFPApi.lib
-LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/dll/dpHFtrEx.lib
+LIBS +=$$PWD/dll/TxPrnMod.dll
+LIBS +=$$PWD/dll/termb.dll
+
 
 FORMS += \
     main_ui.ui
+
