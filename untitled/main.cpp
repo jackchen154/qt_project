@@ -1,9 +1,12 @@
-#include "mainwindow.h"
+
+#include "main_ui.h"
 #include <QApplication>
 #include <QLibrary>
 #include <QDebug>
 #include "termb.h"
 #include "TxPrnMod.h"
+
+
 #include <QFile>
 
 
@@ -12,6 +15,8 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
+    main_ui ui;
+    ui.show();
     /*/显式加载动态库
     QLibrary mylib("TxPrnMod.dll");
     if(mylib.load())
@@ -40,7 +45,7 @@ int main(int argc, char *argv[])
     //*/
     //*
 
-    qDebug()<<"初始化端口："<<InitComm(1);
+    qDebug()<<"初始化身份证端口："<<InitComm(1);
     //qDebug()<<"鉴权结果："<<Authenticate();
     //qDebug()<<"读取结束"<<Read_Content_Path((char *)"C:\\",1);
     //GetDeviceID(deviceid);
@@ -54,7 +59,7 @@ int main(int argc, char *argv[])
          //return -1;
      }
 
-     //*
+
      QTextStream txtInput(&f);
      txtInput.setCodec("UTF-16");
      QString lineStr;
@@ -83,8 +88,9 @@ int main(int argc, char *argv[])
      qDebug()<<"有效期起始:"<<lineStr.mid(94,4).toInt()<<"年"<<lineStr.mid(98,2).toInt()<<"月"<<lineStr.mid(100,2).toInt()<<"日";
      qDebug()<<"有效期截止:"<<lineStr.mid(102,4).toInt()<<"年"<<lineStr.mid(106,2).toInt()<<"月"<<lineStr.mid(108,2).toInt()<<"日";
      f.close();*/
-    MainWindow w;
-    w.show();
+
+
+
     return a.exec();
 }
 

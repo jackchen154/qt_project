@@ -24,15 +24,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+    main_ui.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     TxPrnMod.h \
-    termb.h
+    termb.h \
+    DPDevClt.h \
+    main_ui.h
 
 
 
 LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/dll/TxPrnMod.dll
 LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/dll/termb.dll
+LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/dll/DPFPApi.lib
+LIBS += C:/Users/Administrator/Desktop/qt_project/untitled/dll/dpHFtrEx.lib
 
-
+FORMS += \
+    main_ui.ui

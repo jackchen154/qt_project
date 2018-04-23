@@ -1,20 +1,23 @@
-#include "mainwindow.h"
+#include "main_ui.h"
+#include "ui_main_ui.h"
 #include "termb.h"
 #include <QDebug>
 #include <QFile>
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+
+main_ui::main_ui(QWidget *parent) :
+    QDialog(parent),
+ui(new Ui::main_ui)
 {
-  timerID = startTimer(500,Qt::PreciseTimer);
-  //this->killTimer(timerID);
+    ui->setupUi(this);
+    timerID = startTimer(500,Qt::PreciseTimer);
 }
 
-MainWindow::~MainWindow()
+main_ui::~main_ui()
 {
-
+    delete ui;
 }
 
-void MainWindow::timerEvent(QTimerEvent *time)
+void main_ui::timerEvent(QTimerEvent *time)
 {
     if(Authenticate())
     {
