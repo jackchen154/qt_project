@@ -15,8 +15,8 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    main_ui ui;
-    ui.show();
+    main_ui mui;
+    mui.show();
     /*/显式加载动态库
     QLibrary mylib("TxPrnMod.dll");
     if(mylib.load())
@@ -92,6 +92,10 @@ int main(int argc, char *argv[])
 
 
     return a.exec();
+    while(1)
+    {
+        ;
+    }
 }
 
 

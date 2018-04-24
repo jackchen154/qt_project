@@ -153,6 +153,7 @@ void Dialog::keyPressEvent(QKeyEvent *keyboard)
 //timerID = this->startTimer(1000,Qt::PreciseTimer);//打开定时器
 void Dialog::timerEvent(QTimerEvent *event)
 {
+
     timerbuf++;
     if(timerbuf==20)
     {
