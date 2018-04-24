@@ -64,5 +64,5 @@ void main_ui::timerEvent(QTimerEvent *time)
         }
         //this->killTimer(timerID);
     }
-    //qDebug()<<"鉴权失败";
+    qDebug()<<"鉴权失败";
 }

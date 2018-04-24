@@ -12,3 +12,5 @@ qt_widgets/Makefile.Release
 *.exe
 *.exe
 *.exe
+*.exe
+untitled/main_ui.cpp
