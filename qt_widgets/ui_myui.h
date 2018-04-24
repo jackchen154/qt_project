@@ -49,12 +49,11 @@ public:
     QAction *actiond;
     QAction *actionfff;
     QWidget *centralwidget;
-    QVBoxLayout *verticalLayout_7;
+    QGridLayout *gridLayout_4;
     QFrame *frame;
     QGridLayout *gridLayout_2;
-    QLabel *label_tupain;
-    QScrollBar *verticalScrollBar;
     QDial *dial;
+    QScrollBar *verticalScrollBar;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_6;
     QPushButton *guanbi;
@@ -71,17 +70,21 @@ public:
     QDoubleSpinBox *doubleSpinBox;
     QSpinBox *spinBox;
     QWidget *widget_2;
+    QGridLayout *gridLayout_3;
+    QHBoxLayout *horizontalLayout_7;
     QGridLayout *gridLayout;
-    QComboBox *comboBox;
-    QLabel *label_3;
-    QPushButton *pushButton_3;
     QLabel *label_2;
-    QProgressBar *jindutiao;
-    QSlider *verticalSlider;
-    QSlider *horizontalSlider;
-    QLabel *label;
     QLineEdit *name;
+    QLabel *label;
     QLineEdit *password;
+    QLabel *label_3;
+    QComboBox *comboBox;
+    QPushButton *pushButton_3;
+    QLabel *label_tupain;
+    QVBoxLayout *verticalLayout_5;
+    QProgressBar *jindutiao;
+    QSlider *horizontalSlider;
+    QSlider *verticalSlider;
     QWidget *widget;
     QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout_2;
@@ -110,6 +113,7 @@ public:
         if (myui->objectName().isEmpty())
             myui->setObjectName(QStringLiteral("myui"));
         myui->resize(759, 453);
+        myui->setMinimumSize(QSize(759, 0));
         myui->setBaseSize(QSize(100, 100));
         actionopen = new QAction(myui);
         actionopen->setObjectName(QStringLiteral("actionopen"));
@@ -120,33 +124,25 @@ public:
         centralwidget = new QWidget(myui);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         centralwidget->setBaseSize(QSize(100, 100));
-        verticalLayout_7 = new QVBoxLayout(centralwidget);
-        verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
+        gridLayout_4 = new QGridLayout(centralwidget);
+        gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
         frame = new QFrame(centralwidget);
         frame->setObjectName(QStringLiteral("frame"));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
         gridLayout_2 = new QGridLayout(frame);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
-        label_tupain = new QLabel(frame);
-        label_tupain->setObjectName(QStringLiteral("label_tupain"));
-        label_tupain->setMaximumSize(QSize(150, 200));
-        label_tupain->setPixmap(QPixmap(QString::fromUtf8(":/image/meinv.png")));
-        label_tupain->setScaledContents(false);
-
-        gridLayout_2->addWidget(label_tupain, 0, 2, 1, 1);
-
-        verticalScrollBar = new QScrollBar(frame);
-        verticalScrollBar->setObjectName(QStringLiteral("verticalScrollBar"));
-        verticalScrollBar->setOrientation(Qt::Vertical);
-
-        gridLayout_2->addWidget(verticalScrollBar, 0, 3, 1, 1);
-
         dial = new QDial(frame);
         dial->setObjectName(QStringLiteral("dial"));
         dial->setMinimumSize(QSize(100, 100));
 
         gridLayout_2->addWidget(dial, 0, 1, 1, 1);
+
+        verticalScrollBar = new QScrollBar(frame);
+        verticalScrollBar->setObjectName(QStringLiteral("verticalScrollBar"));
+        verticalScrollBar->setOrientation(Qt::Vertical);
+
+        gridLayout_2->addWidget(verticalScrollBar, 0, 2, 1, 1);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
@@ -220,70 +216,93 @@ public:
         gridLayout_2->addLayout(verticalLayout, 0, 0, 1, 1);
 
         verticalScrollBar->raise();
-        label_tupain->raise();
         dial->raise();
 
-        verticalLayout_7->addWidget(frame);
+        gridLayout_4->addWidget(frame, 0, 0, 1, 1);
 
         widget_2 = new QWidget(centralwidget);
         widget_2->setObjectName(QStringLiteral("widget_2"));
-        gridLayout = new QGridLayout(widget_2);
+        gridLayout_3 = new QGridLayout(widget_2);
+        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        gridLayout = new QGridLayout();
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        comboBox = new QComboBox(widget_2);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-
-        gridLayout->addWidget(comboBox, 3, 1, 1, 1);
-
-        label_3 = new QLabel(widget_2);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        gridLayout->addWidget(label_3, 3, 0, 1, 1);
-
-        pushButton_3 = new QPushButton(widget_2);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-
-        gridLayout->addWidget(pushButton_3, 3, 2, 1, 1);
-
         label_2 = new QLabel(widget_2);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout->addWidget(label_2, 0, 0, 1, 1);
-
-        jindutiao = new QProgressBar(widget_2);
-        jindutiao->setObjectName(QStringLiteral("jindutiao"));
-        jindutiao->setValue(50);
-
-        gridLayout->addWidget(jindutiao, 0, 3, 1, 1);
-
-        verticalSlider = new QSlider(widget_2);
-        verticalSlider->setObjectName(QStringLiteral("verticalSlider"));
-        verticalSlider->setOrientation(Qt::Vertical);
-
-        gridLayout->addWidget(verticalSlider, 0, 4, 5, 1);
-
-        horizontalSlider = new QSlider(widget_2);
-        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        horizontalSlider->setOrientation(Qt::Horizontal);
-
-        gridLayout->addWidget(horizontalSlider, 3, 3, 1, 1);
-
-        label = new QLabel(widget_2);
-        label->setObjectName(QStringLiteral("label"));
-
-        gridLayout->addWidget(label, 1, 0, 1, 1);
 
         name = new QLineEdit(widget_2);
         name->setObjectName(QStringLiteral("name"));
 
         gridLayout->addWidget(name, 0, 1, 1, 2);
 
+        label = new QLabel(widget_2);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout->addWidget(label, 1, 0, 1, 1);
+
         password = new QLineEdit(widget_2);
         password->setObjectName(QStringLiteral("password"));
 
         gridLayout->addWidget(password, 1, 1, 1, 2);
 
+        label_3 = new QLabel(widget_2);
+        label_3->setObjectName(QStringLiteral("label_3"));
 
-        verticalLayout_7->addWidget(widget_2);
+        gridLayout->addWidget(label_3, 2, 0, 1, 1);
+
+        comboBox = new QComboBox(widget_2);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+
+        gridLayout->addWidget(comboBox, 2, 1, 1, 1);
+
+        pushButton_3 = new QPushButton(widget_2);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+
+        gridLayout->addWidget(pushButton_3, 2, 2, 1, 1);
+
+
+        horizontalLayout_7->addLayout(gridLayout);
+
+        label_tupain = new QLabel(widget_2);
+        label_tupain->setObjectName(QStringLiteral("label_tupain"));
+        label_tupain->setMinimumSize(QSize(100, 95));
+        label_tupain->setMaximumSize(QSize(100, 95));
+        label_tupain->setPixmap(QPixmap(QString::fromUtf8(":/image/meinv.png")));
+        label_tupain->setScaledContents(false);
+
+        horizontalLayout_7->addWidget(label_tupain);
+
+
+        gridLayout_3->addLayout(horizontalLayout_7, 0, 0, 1, 1);
+
+        verticalLayout_5 = new QVBoxLayout();
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        jindutiao = new QProgressBar(widget_2);
+        jindutiao->setObjectName(QStringLiteral("jindutiao"));
+        jindutiao->setValue(50);
+
+        verticalLayout_5->addWidget(jindutiao);
+
+        horizontalSlider = new QSlider(widget_2);
+        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
+        horizontalSlider->setOrientation(Qt::Horizontal);
+
+        verticalLayout_5->addWidget(horizontalSlider);
+
+
+        gridLayout_3->addLayout(verticalLayout_5, 0, 1, 1, 1);
+
+        verticalSlider = new QSlider(widget_2);
+        verticalSlider->setObjectName(QStringLiteral("verticalSlider"));
+        verticalSlider->setOrientation(Qt::Vertical);
+
+        gridLayout_3->addWidget(verticalSlider, 0, 2, 1, 1);
+
+
+        gridLayout_4->addWidget(widget_2, 1, 0, 1, 1);
 
         widget = new QWidget(centralwidget);
         widget->setObjectName(QStringLiteral("widget"));
@@ -358,7 +377,29 @@ public:
         tab_2->setObjectName(QStringLiteral("tab_2"));
         pushButton_2 = new QPushButton(tab_2);
         pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(24, 16, 75, 23));
+        pushButton_2->setGeometry(QRect(4, 6, 175, 65));
+        pushButton_2->setStyleSheet(QLatin1String("QPushButton\n"
+"{\n"
+"  border: 2px solid gray;\n"
+"  border-radius:10px;\n"
+"  min-width: 80px;\n"
+"  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde);\n"
+"	font: 75 20pt \"Aharoni\";\n"
+"}\n"
+"QPushButton:pressed\n"
+"{\n"
+"background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);\n"
+"}\n"
+"QPushButton:default\n"
+"{\n"
+"border-color: navy;\n"
+"}\n"
+"QPushButton:hover\n"
+"{\n"
+"border-color: navy;\n"
+"}\n"
+"\n"
+""));
         tabWidget->addTab(tab_2, QString());
 
         verticalLayout_3->addWidget(tabWidget);
@@ -367,7 +408,7 @@ public:
         horizontalLayout_3->addLayout(verticalLayout_3);
 
 
-        verticalLayout_7->addWidget(widget);
+        gridLayout_4->addWidget(widget, 2, 0, 1, 1);
 
         myui->setCentralWidget(centralwidget);
         menubar = new QMenuBar(myui);
@@ -401,20 +442,20 @@ public:
         actionopen->setText(QApplication::translate("myui", "\346\211\223\345\274\200", Q_NULLPTR));
         actiond->setText(QApplication::translate("myui", "\344\277\235\345\255\230", Q_NULLPTR));
         actionfff->setText(QApplication::translate("myui", "\345\211\252\345\210\207", Q_NULLPTR));
-        label_tupain->setText(QString());
         guanbi->setText(QApplication::translate("myui", "\345\205\263\351\227\255", Q_NULLPTR));
         label_html->setText(QApplication::translate("myui", "TextLabel", Q_NULLPTR));
+        label_2->setText(QApplication::translate("myui", "<html><head/><body><p>\350\257\267\350\276\223\345\205\245\345\247\223\345\220\215\357\274\232</p></body></html>", Q_NULLPTR));
+        name->setText(QString());
+        label->setText(QApplication::translate("myui", "<html><head/><body><p>\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201\357\274\232</p></body></html>", Q_NULLPTR));
+        password->setText(QString());
+        label_3->setText(QApplication::translate("myui", "<html><head/><body><p>\346\200\247\345\210\253      \357\274\232</p></body></html>", Q_NULLPTR));
         comboBox->clear();
         comboBox->insertItems(0, QStringList()
-         << QApplication::translate("myui", "\347\224\267", Q_NULLPTR)
          << QApplication::translate("myui", "\345\245\263", Q_NULLPTR)
+         << QApplication::translate("myui", "\347\224\267", Q_NULLPTR)
         );
-        label_3->setText(QApplication::translate("myui", "<html><head/><body><p>\346\200\247\345\210\253      \357\274\232</p></body></html>", Q_NULLPTR));
         pushButton_3->setText(QApplication::translate("myui", "\347\241\256\345\256\232", Q_NULLPTR));
-        label_2->setText(QApplication::translate("myui", "<html><head/><body><p>\350\257\267\350\276\223\345\205\245\345\247\223\345\220\215\357\274\232</p></body></html>", Q_NULLPTR));
-        label->setText(QApplication::translate("myui", "<html><head/><body><p>\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201\357\274\232</p></body></html>", Q_NULLPTR));
-        name->setText(QString());
-        password->setText(QString());
+        label_tupain->setText(QString());
         label_4->setText(QApplication::translate("myui", "<html><head/><body><p>\345\244\207\346\263\250 \357\274\232</p></body></html>", Q_NULLPTR));
         label_gifdonghua->setText(QApplication::translate("myui", "gif", Q_NULLPTR));
         pushButton->setText(QApplication::translate("myui", "\345\210\207\346\215\242", Q_NULLPTR));

@@ -1,16 +1,8 @@
 qt_widgets/Debug/*
 qt_widgets/release/*
-qt_widgets/image/*
 qt_widgets/*.user
 qt_widgets/*.Debug
 qt_widgets/*.Release
-
-*.Debug
-*.Release
 qt_widgets/Makefile.Debug
 qt_widgets/Makefile.Release
-*.exe
-*.exe
-*.exe
-*.exe
-untitled/main_ui.cpp
+

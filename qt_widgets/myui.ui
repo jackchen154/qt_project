@@ -10,6 +10,12 @@
     <height>453</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>759</width>
+    <height>453</height>
+   </size>
+  </property>
   <property name="baseSize">
    <size>
     <width>100</width>
@@ -26,8 +32,8 @@
      <height>100</height>
     </size>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_7">
-    <item>
+   <layout class="QGridLayout" name="gridLayout_4">
+    <item row="0" column="0">
      <widget class="QFrame" name="frame">
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -36,32 +42,6 @@
        <enum>QFrame::Raised</enum>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="2">
-        <widget class="QLabel" name="label_tupain">
-         <property name="maximumSize">
-          <size>
-           <width>150</width>
-           <height>200</height>
-          </size>
-         </property>
-         <property name="text">
-          <string/>
-         </property>
-         <property name="pixmap">
-          <pixmap resource="myresource.qrc">:/image/meinv.png</pixmap>
-         </property>
-         <property name="scaledContents">
-          <bool>false</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QScrollBar" name="verticalScrollBar">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QDial" name="dial">
          <property name="minimumSize">
@@ -69,6 +49,13 @@
            <width>100</width>
            <height>100</height>
           </size>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QScrollBar" name="verticalScrollBar">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>
@@ -177,95 +164,131 @@
        </item>
       </layout>
       <zorder>verticalScrollBar</zorder>
-      <zorder>label_tupain</zorder>
       <zorder>dial</zorder>
       <zorder></zorder>
      </widget>
     </item>
-    <item>
+    <item row="1" column="0">
      <widget class="QWidget" name="widget_2" native="true">
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="3" column="1">
-        <widget class="QComboBox" name="comboBox">
-         <item>
-          <property name="text">
-           <string>男</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>女</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;性别      ：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="text">
-          <string>确定</string>
-         </property>
-        </widget>
-       </item>
+      <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;请输入姓名：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <layout class="QGridLayout" name="gridLayout">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_2">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;请输入姓名：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1" colspan="2">
+            <widget class="QLineEdit" name="name">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;请输入密码：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" colspan="2">
+            <widget class="QLineEdit" name="password">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;性别      ：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QComboBox" name="comboBox">
+             <item>
+              <property name="text">
+               <string>女</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>男</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QPushButton" name="pushButton_3">
+             <property name="text">
+              <string>确定</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_tupain">
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>95</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>95</height>
+            </size>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="pixmap">
+            <pixmap resource="myresource.qrc">:/image/meinv.png</pixmap>
+           </property>
+           <property name="scaledContents">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="0" column="3">
-        <widget class="QProgressBar" name="jindutiao">
-         <property name="value">
-          <number>50</number>
-         </property>
-        </widget>
+       <item row="0" column="1">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QProgressBar" name="jindutiao">
+           <property name="value">
+            <number>50</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSlider" name="horizontalSlider">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item row="0" column="4" rowspan="5">
+       <item row="0" column="2">
         <widget class="QSlider" name="verticalSlider">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>
-       <item row="3" column="3">
-        <widget class="QSlider" name="horizontalSlider">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;请输入密码：&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1" colspan="2">
-        <widget class="QLineEdit" name="name">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" colspan="2">
-        <widget class="QLineEdit" name="password">
-         <property name="text">
-          <string/>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
     </item>
-    <item>
+    <item row="2" column="0">
      <widget class="QWidget" name="widget" native="true">
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <property name="spacing">
@@ -394,11 +417,35 @@
             <widget class="QPushButton" name="pushButton_2">
              <property name="geometry">
               <rect>
-               <x>24</x>
-               <y>16</y>
-               <width>75</width>
-               <height>23</height>
+               <x>4</x>
+               <y>6</y>
+               <width>175</width>
+               <height>65</height>
               </rect>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPushButton
+{
+  border: 2px solid gray;
+  border-radius:10px;
+  min-width: 80px;
+  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #f6f7fa, stop: 1 #dadbde);
+	font: 75 20pt &quot;Aharoni&quot;;
+}
+QPushButton:pressed
+{
+background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,stop: 0 #dadbde, stop: 1 #f6f7fa);
+}
+QPushButton:default
+{
+border-color: navy;
+}
+QPushButton:hover
+{
+border-color: navy;
+}
+
+</string>
              </property>
              <property name="text">
               <string>PushButton</string>
