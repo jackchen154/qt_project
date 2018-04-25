@@ -22,14 +22,14 @@ void main_ui::timerEvent(QTimerEvent *)
 {
 
 
-    //*
+    /*
     if(GetDeviceID(id_devid))
-    {
+    {*/
      if(Authenticate())
      {
         qDebug()<<"鉴权成功";
         if(Read_Content_Path((char *)"C:\\",1)!=0)
-        {//*/
+        {
             QFile f("C:\\wz.txt");
             if(!f.open(QIODevice::ReadOnly | QIODevice::Text))
             {
@@ -37,7 +37,7 @@ void main_ui::timerEvent(QTimerEvent *)
                 //return -1;
             }
 
-            //*
+
             QTextStream txtInput(&f);
             txtInput.setCodec("UTF-16");
             QString lineStr;
@@ -88,12 +88,22 @@ void main_ui::timerEvent(QTimerEvent *)
             f.close();
             ui->idphoto->setPixmap(QPixmap("C://zp.bmp"));
             ui->idphoto->setScaledContents(true);
+            //删除数据
+            QFile zhiwen("C:\\fp.dat");
+            QFile wlttupian("C:\\xp.wlt");
+            QFile bmptupian("C:\\zp.bmp");
+            QFile wenzi("C:\\wz.txt");
+            if (zhiwen.exists()) zhiwen.remove();
+            if (wlttupian.exists()) wlttupian.remove();
+            if (bmptupian.exists()) bmptupian.remove();
+            if (wenzi.exists()) wenzi.remove();
+
 
         }
         //this->killTimer(timerID);
 
     }
-    }
+
     //qDebug()<<"鉴权失败";
 
 }

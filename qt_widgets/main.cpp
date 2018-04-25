@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    //*
+    /*
 
     myWidget mainwindow;
     mainwindow.show();
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
      * 4.控件的样式表
      * 5.进度条的操作
      * 5.UI的布局
-
+     */
     myui ui;
     ui.show();
     //*/
