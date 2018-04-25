@@ -13,6 +13,7 @@ class main_ui : public QDialog
 
 public:
     explicit main_ui(QWidget *parent = 0);
+    char id_devid[200];
     ~main_ui();
 
 private:

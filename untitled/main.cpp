@@ -1,4 +1,3 @@
-
 #include "main_ui.h"
 #include <QApplication>
 #include <QLibrary>
@@ -45,7 +44,7 @@ int main(int argc, char *argv[])
     //*/
     //*
 
-    qDebug()<<"初始化身份证端口："<<InitComm(1);
+    qDebug()<<"初始化身份证端口："<<InitCommExt();
     //qDebug()<<"鉴权结果："<<Authenticate();
     //qDebug()<<"读取结束"<<Read_Content_Path((char *)"C:\\",1);
     //GetDeviceID(deviceid);
@@ -92,10 +91,7 @@ int main(int argc, char *argv[])
 
 
     return a.exec();
-    while(1)
-    {
-        ;
-    }
+
 }
 
 

@@ -9,7 +9,7 @@ main_ui::main_ui(QWidget *parent) :
 ui(new Ui::main_ui)
 {
     ui->setupUi(this);
-    timerID = startTimer(3000);
+    timerID = startTimer(500);
     //killTimer(timerID);
 }
 
@@ -22,12 +22,14 @@ void main_ui::timerEvent(QTimerEvent *)
 {
 
 
-    /*
-     if(Authenticate())
+    //*
+    if(GetDeviceID(id_devid))
     {
+     if(Authenticate())
+     {
         qDebug()<<"鉴权成功";
         if(Read_Content_Path((char *)"C:\\",1)!=0)
-        {*/
+        {//*/
             QFile f("C:\\wz.txt");
             if(!f.open(QIODevice::ReadOnly | QIODevice::Text))
             {
@@ -86,14 +88,13 @@ void main_ui::timerEvent(QTimerEvent *)
             f.close();
             ui->idphoto->setPixmap(QPixmap("C://zp.bmp"));
             ui->idphoto->setScaledContents(true);
-            /*/  qDebug()<<"读取完毕";
+
         }
         //this->killTimer(timerID);
-<<<<<<< HEAD
+
     }
-    qDebug()<<"鉴权失败";
-=======
-    }//*/
+    }
     //qDebug()<<"鉴权失败";
->>>>>>> f405a16dd4832c45f98da2c2b15965719c2c83de
+
 }
+

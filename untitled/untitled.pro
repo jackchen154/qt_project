@@ -29,7 +29,6 @@ SOURCES += main.cpp\
 HEADERS  += \
     TxPrnMod.h \
     termb.h \
-    DPDevClt.h \
     main_ui.h
 
 
