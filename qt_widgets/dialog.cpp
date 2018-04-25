@@ -122,6 +122,7 @@ void Dialog::mouseReleaseEvent(QMouseEvent *ev)
     ui->realdata2->setText(QString("real:(X:%1 Y:%2)").arg(ev->x() - x00).arg(ev->y()-y00));
 }
 
+//窗口处理事件
 void Dialog::enterEvent(QEvent *event)
 {
     ui->realdata->setText("进入窗口");

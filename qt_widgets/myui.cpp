@@ -1,5 +1,6 @@
 #include "myui.h"
 #include "ui_myui.h"
+#include "zidgyikongjian.h"
 #include <QDebug>
 #include <QCompleter>//用于文本补全
 #include <QStringList>//字符串列表

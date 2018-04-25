@@ -39,6 +39,7 @@
 #include <QtWidgets/QTimeEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <zidgyikongjian.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -69,22 +70,20 @@ public:
     QTimeEdit *timeEdit;
     QDoubleSpinBox *doubleSpinBox;
     QSpinBox *spinBox;
+    QProgressBar *jindutiao;
+    QSlider *verticalSlider;
     QWidget *widget_2;
     QGridLayout *gridLayout_3;
-    QHBoxLayout *horizontalLayout_7;
     QGridLayout *gridLayout;
+    QLabel *label_3;
     QLabel *label_2;
+    QPushButton *pushButton_3;
+    QLineEdit *password;
+    QComboBox *comboBox;
     QLineEdit *name;
     QLabel *label;
-    QLineEdit *password;
-    QLabel *label_3;
-    QComboBox *comboBox;
-    QPushButton *pushButton_3;
     QLabel *label_tupain;
-    QVBoxLayout *verticalLayout_5;
-    QProgressBar *jindutiao;
-    QSlider *horizontalSlider;
-    QSlider *verticalSlider;
+    zidgyikongjian *widget_3;
     QWidget *widget;
     QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout_2;
@@ -113,7 +112,7 @@ public:
         if (myui->objectName().isEmpty())
             myui->setObjectName(QStringLiteral("myui"));
         myui->resize(759, 453);
-        myui->setMinimumSize(QSize(759, 0));
+        myui->setMinimumSize(QSize(759, 453));
         myui->setBaseSize(QSize(100, 100));
         actionopen = new QAction(myui);
         actionopen->setObjectName(QStringLiteral("actionopen"));
@@ -218,20 +217,50 @@ public:
         verticalScrollBar->raise();
         dial->raise();
 
-        gridLayout_4->addWidget(frame, 0, 0, 1, 1);
+        gridLayout_4->addWidget(frame, 0, 0, 1, 2);
+
+        jindutiao = new QProgressBar(centralwidget);
+        jindutiao->setObjectName(QStringLiteral("jindutiao"));
+        jindutiao->setValue(50);
+
+        gridLayout_4->addWidget(jindutiao, 0, 2, 1, 1);
+
+        verticalSlider = new QSlider(centralwidget);
+        verticalSlider->setObjectName(QStringLiteral("verticalSlider"));
+        verticalSlider->setOrientation(Qt::Vertical);
+
+        gridLayout_4->addWidget(verticalSlider, 0, 3, 1, 1);
 
         widget_2 = new QWidget(centralwidget);
         widget_2->setObjectName(QStringLiteral("widget_2"));
         gridLayout_3 = new QGridLayout(widget_2);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
-        horizontalLayout_7 = new QHBoxLayout();
-        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
         gridLayout = new QGridLayout();
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        label_3 = new QLabel(widget_2);
+        label_3->setObjectName(QStringLiteral("label_3"));
+
+        gridLayout->addWidget(label_3, 2, 0, 1, 1);
+
         label_2 = new QLabel(widget_2);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         gridLayout->addWidget(label_2, 0, 0, 1, 1);
+
+        pushButton_3 = new QPushButton(widget_2);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+
+        gridLayout->addWidget(pushButton_3, 2, 2, 1, 1);
+
+        password = new QLineEdit(widget_2);
+        password->setObjectName(QStringLiteral("password"));
+
+        gridLayout->addWidget(password, 1, 1, 1, 2);
+
+        comboBox = new QComboBox(widget_2);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+
+        gridLayout->addWidget(comboBox, 2, 1, 1, 1);
 
         name = new QLineEdit(widget_2);
         name->setObjectName(QStringLiteral("name"));
@@ -243,28 +272,8 @@ public:
 
         gridLayout->addWidget(label, 1, 0, 1, 1);
 
-        password = new QLineEdit(widget_2);
-        password->setObjectName(QStringLiteral("password"));
 
-        gridLayout->addWidget(password, 1, 1, 1, 2);
-
-        label_3 = new QLabel(widget_2);
-        label_3->setObjectName(QStringLiteral("label_3"));
-
-        gridLayout->addWidget(label_3, 2, 0, 1, 1);
-
-        comboBox = new QComboBox(widget_2);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-
-        gridLayout->addWidget(comboBox, 2, 1, 1, 1);
-
-        pushButton_3 = new QPushButton(widget_2);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-
-        gridLayout->addWidget(pushButton_3, 2, 2, 1, 1);
-
-
-        horizontalLayout_7->addLayout(gridLayout);
+        gridLayout_3->addLayout(gridLayout, 0, 0, 1, 1);
 
         label_tupain = new QLabel(widget_2);
         label_tupain->setObjectName(QStringLiteral("label_tupain"));
@@ -273,36 +282,16 @@ public:
         label_tupain->setPixmap(QPixmap(QString::fromUtf8(":/image/meinv.png")));
         label_tupain->setScaledContents(false);
 
-        horizontalLayout_7->addWidget(label_tupain);
-
-
-        gridLayout_3->addLayout(horizontalLayout_7, 0, 0, 1, 1);
-
-        verticalLayout_5 = new QVBoxLayout();
-        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        jindutiao = new QProgressBar(widget_2);
-        jindutiao->setObjectName(QStringLiteral("jindutiao"));
-        jindutiao->setValue(50);
-
-        verticalLayout_5->addWidget(jindutiao);
-
-        horizontalSlider = new QSlider(widget_2);
-        horizontalSlider->setObjectName(QStringLiteral("horizontalSlider"));
-        horizontalSlider->setOrientation(Qt::Horizontal);
-
-        verticalLayout_5->addWidget(horizontalSlider);
-
-
-        gridLayout_3->addLayout(verticalLayout_5, 0, 1, 1, 1);
-
-        verticalSlider = new QSlider(widget_2);
-        verticalSlider->setObjectName(QStringLiteral("verticalSlider"));
-        verticalSlider->setOrientation(Qt::Vertical);
-
-        gridLayout_3->addWidget(verticalSlider, 0, 2, 1, 1);
+        gridLayout_3->addWidget(label_tupain, 0, 1, 1, 1);
 
 
         gridLayout_4->addWidget(widget_2, 1, 0, 1, 1);
+
+        widget_3 = new zidgyikongjian(centralwidget);
+        widget_3->setObjectName(QStringLiteral("widget_3"));
+        widget_3->setMinimumSize(QSize(0, 109));
+
+        gridLayout_4->addWidget(widget_3, 1, 1, 1, 2);
 
         widget = new QWidget(centralwidget);
         widget->setObjectName(QStringLiteral("widget"));
@@ -408,7 +397,7 @@ public:
         horizontalLayout_3->addLayout(verticalLayout_3);
 
 
-        gridLayout_4->addWidget(widget, 2, 0, 1, 1);
+        gridLayout_4->addWidget(widget, 2, 0, 1, 4);
 
         myui->setCentralWidget(centralwidget);
         menubar = new QMenuBar(myui);
@@ -430,7 +419,7 @@ public:
         retranslateUi(myui);
         QObject::connect(guanbi, SIGNAL(clicked()), myui, SLOT(close()));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(myui);
@@ -444,17 +433,17 @@ public:
         actionfff->setText(QApplication::translate("myui", "\345\211\252\345\210\207", Q_NULLPTR));
         guanbi->setText(QApplication::translate("myui", "\345\205\263\351\227\255", Q_NULLPTR));
         label_html->setText(QApplication::translate("myui", "TextLabel", Q_NULLPTR));
-        label_2->setText(QApplication::translate("myui", "<html><head/><body><p>\350\257\267\350\276\223\345\205\245\345\247\223\345\220\215\357\274\232</p></body></html>", Q_NULLPTR));
-        name->setText(QString());
-        label->setText(QApplication::translate("myui", "<html><head/><body><p>\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201\357\274\232</p></body></html>", Q_NULLPTR));
-        password->setText(QString());
         label_3->setText(QApplication::translate("myui", "<html><head/><body><p>\346\200\247\345\210\253      \357\274\232</p></body></html>", Q_NULLPTR));
+        label_2->setText(QApplication::translate("myui", "<html><head/><body><p>\350\257\267\350\276\223\345\205\245\345\247\223\345\220\215\357\274\232</p></body></html>", Q_NULLPTR));
+        pushButton_3->setText(QApplication::translate("myui", "\347\241\256\345\256\232", Q_NULLPTR));
+        password->setText(QString());
         comboBox->clear();
         comboBox->insertItems(0, QStringList()
          << QApplication::translate("myui", "\345\245\263", Q_NULLPTR)
          << QApplication::translate("myui", "\347\224\267", Q_NULLPTR)
         );
-        pushButton_3->setText(QApplication::translate("myui", "\347\241\256\345\256\232", Q_NULLPTR));
+        name->setText(QString());
+        label->setText(QApplication::translate("myui", "<html><head/><body><p>\350\257\267\350\276\223\345\205\245\345\257\206\347\240\201\357\274\232</p></body></html>", Q_NULLPTR));
         label_tupain->setText(QString());
         label_4->setText(QApplication::translate("myui", "<html><head/><body><p>\345\244\207\346\263\250 \357\274\232</p></body></html>", Q_NULLPTR));
         label_gifdonghua->setText(QApplication::translate("myui", "gif", Q_NULLPTR));

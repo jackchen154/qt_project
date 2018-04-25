@@ -64,9 +64,9 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
     statusbar_data->setText("enpty file 空白 123");
     zhuangtailan->addWidget(statusbar_data);//使用addwidget是从左往右添加状态信息
     //B:
-    zhuangtailan->addWidget(new QLabel("添加第二个状态",this));//以无名对象的方式添加
+    zhuangtailan->addWidget(new QLabel("从左到右添加一个label",this));//以无名对象的方式添加
     //C:
-    zhuangtailan->addPermanentWidget(new QLabel("添加第三个状态",this));//从右向左添加
+    zhuangtailan->addPermanentWidget(new QLabel("从右向左添加一个label",this));//从右向左添加
 
     //核心控件部分
     QTextEdit *bianjiqu = new QTextEdit(this);//创建一个文本编辑区对象
@@ -76,16 +76,21 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
     QDockWidget *fudongchuagk = new QDockWidget(this);
     addDockWidget(Qt::RightDockWidgetArea,fudongchuagk);
     QTextEdit *wenbenbjq1 =new QTextEdit(this);
-    fudongchuagk->setWidget(wenbenbjq1);
+    fudongchuagk->setWidget(wenbenbjq1);//向浮动窗口添加一个文本编辑区
 
 
     //模态和非模态对话框部分
-     QMenu *cduihuak = caidanlan->addMenu("对话框");
+     QMenu *cduihuak = caidanlan->addMenu("模态非模态对话框");
      QAction *motaiduihuak = cduihuak->addAction("模态对话框");//对话框在出现的时候不能操作其他界面
      connect(motaiduihuak,&QAction::triggered,
              [=]()
              {
                 QDialog motaiduihuakuang;//创建一个模态对话框,在运行exec()后被释放
+                motaiduihuakuang.resize(300,300);
+
+                QLabel *shuoming =new QLabel(&motaiduihuakuang);
+                shuoming->move(0,150);
+                shuoming->setText("这是一个模态对话框！必须先关掉才能继续操作!!");
                 motaiduihuakuang.exec();//运行到此处停住堵塞，等待用户操作
                 qDebug()<<"模态对话框";
              }
@@ -110,9 +115,9 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
              );
 
         //标准对话框部分
-        QMenu *guanyuapp = caidanlan->addMenu("关于软件");
+        QMenu *guanyuapp = caidanlan->addMenu("消息对话框");
         //A:创建一个“关于对话框”,只带有一个"ok"按钮
-        QAction *guanyuduihuakuang = guanyuapp->addAction("关于");
+        QAction *guanyuduihuakuang = guanyuapp->addAction("关于对话框");
         connect(guanyuduihuakuang,&QAction::triggered,
                 [=]()
                 {
@@ -121,7 +126,7 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
                 }
                 );
         //B:创建一个“问题对话框”,默认有"yes"和"no"两个按钮
-        QAction *wentiduihuakuang = guanyuapp->addAction("保存？");
+        QAction *wentiduihuakuang = guanyuapp->addAction("询问对话框(带按钮)");
         connect(wentiduihuakuang,&QAction::triggered,
                 [=]()
                 {
@@ -141,7 +146,7 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
                 }
                 );
         //C:创建一个文件对话框
-        QAction *wenjduihuakuang = caidanlan->addAction("选择文件");
+        QAction *wenjduihuakuang = caidanlan->addAction("文件对话框");
         connect(wenjduihuakuang,&QAction::triggered,
                 [=]()
                 {
@@ -160,17 +165,15 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
     //按钮1
     b1.setParent(this);
     b1.setText("关闭父窗口");
-    b1.move(0,150);
 
     //按钮2
     b2= new QPushButton(this);//通过构造函数传参指定父对象
     b2->setText("切换文字");
-    b2->move(0,50);
 
     //按钮3
     b3.setParent(this);
     b3.setText("显示子窗口");
-    b3.move(100,50);
+
     gongjulan->addWidget(&b1);
     gongjulan->addWidget(b2);
     gongjulan->addWidget(&b3);
