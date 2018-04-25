@@ -120,11 +120,11 @@ public:
         myui2->setCentralWidget(centralwidget);
         lineEdit->raise();
         label_3->raise();
-        lineEdit_2->raise();
         label_2->raise();
         pushButton_4->raise();
         labelshowmouse->raise();
         widget->raise();
+        lineEdit_2->raise();
         menubar = new QMenuBar(myui2);
         menubar->setObjectName(QStringLiteral("menubar"));
         menubar->setGeometry(QRect(0, 0, 300, 25));

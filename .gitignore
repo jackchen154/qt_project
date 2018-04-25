@@ -1,11 +1,16 @@
 qt_widgets/Debug/*
 qt_widgets/release/*
-qt_widgets/image/*
 qt_widgets/*.user
 qt_widgets/*.Debug
 qt_widgets/*.Release
+<<<<<<< HEAD
 untitled/Debug/*
 untitled/release/*
 untitled/*.user
 untitled/*.Debug
 untitled/*.Release
+=======
+qt_widgets/Makefile.Debug
+qt_widgets/Makefile.Release
+
+>>>>>>> c0932bf2dfb2c613f6f018d6a76e2c41d1954bcd
