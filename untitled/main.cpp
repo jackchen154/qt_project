@@ -8,7 +8,8 @@
 
 #include <QFile>
 
-
+//https://blog.csdn.net/dongchongyang/article/details/52926310
+//https://blog.csdn.net/bububu2012/article/details/43015781
 
 int main(int argc, char *argv[])
 {
