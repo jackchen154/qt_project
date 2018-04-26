@@ -10,7 +10,7 @@ ui(new Ui::main_ui)
 {
     ui->setupUi(this);
     timerID = startTimer(500);
-    //killTimer(timerID);
+    killTimer(timerID);
 }
 
 main_ui::~main_ui()
@@ -104,7 +104,7 @@ void main_ui::timerEvent(QTimerEvent *)
 
     }
 
-    //qDebug()<<"鉴权失败";
+    qDebug()<<"鉴权失败";
 
 }
 

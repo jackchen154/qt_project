@@ -29,12 +29,14 @@ SOURCES += main.cpp\
 HEADERS  += \
     TxPrnMod.h \
     termb.h \
-    main_ui.h
+    main_ui.h \
+    mt_32.h
 
 
 
 LIBS +=$$PWD/dll/TxPrnMod.dll
 LIBS +=$$PWD/dll/termb.dll
+LIBS +=$$PWD/dll/mt_32.dll
 
 
 FORMS += \
