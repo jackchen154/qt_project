@@ -206,6 +206,7 @@ release/moc_main_ui.cpp: C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QDialog 
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtouchdevice.h \
+		mt_32.h \
 		main_ui.h \
 		release/moc_predefs.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/bin/moc.exe
@@ -335,6 +336,7 @@ release/main.o: main.cpp main_ui.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtouchdevice.h \
+		mt_32.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QApplication \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qapplication.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qcoreapplication.h \
@@ -345,9 +347,6 @@ release/main.o: main.cpp main_ui.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QLibrary \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qlibrary.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QDebug \
-		termb.h \
-		TxPrnMod.h \
-		mt_32.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QFile
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o main.cpp
 
@@ -454,6 +453,7 @@ release/main_ui.o: main_ui.cpp main_ui.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qfiledevice.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtouchdevice.h \
+		mt_32.h \
 		ui_main_ui.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QVariant \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QAction \

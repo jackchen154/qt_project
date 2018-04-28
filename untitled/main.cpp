@@ -2,9 +2,9 @@
 #include <QApplication>
 #include <QLibrary>
 #include <QDebug>
-#include "termb.h"
+
 //#include "TxPrnMod.h"
-#include "mt_32.h"
+
 
 
 #include <QFile>
@@ -16,28 +16,28 @@ int main(int argc, char *argv[])
 {
 
     QApplication a(argc, argv);
-    //main_ui mui;
-    //mui.show();
+    main_ui mui;
+   // mui.show();
 
-    HANDLE dukaqi_id;
-    unsigned char verlen=0;
-    unsigned char verdata[100]={0};
-     char sndata[100]={0};
-    //memset(verdata,0,100);
+//    HANDLE dukaqi_id;
+//    unsigned char verlen=0;
+//    unsigned char verdata[100]={0};
+//     char sndata[100]={0};
+//    //memset(verdata,0,100);
 
-    dukaqi_id = open_device(0,0);
+//    dukaqi_id = open_device(0,0);
 
-    if(dukaqi_id == INVALID_HANDLE_VALUE)
-    qDebug()<<"IC读卡器打开失败";
-    else
-        qDebug()<<"IC读卡器打开成功";
-    //获取版本号
-    get_version(dukaqi_id,&verlen,verdata);
-    qDebug()<<"版本信息字节长度"<<verlen<<"版本信息"<<(char *)verdata;
+//    if(dukaqi_id == INVALID_HANDLE_VALUE)
+//    qDebug()<<"IC读卡器打开失败";
+//    else
+//        qDebug()<<"IC读卡器打开成功";
+//    //获取版本号
+//    get_version(dukaqi_id,&verlen,verdata);
+//    qDebug()<<"版本信息字节长度"<<verlen<<"版本信息"<<(char *)verdata;
 
-    //获取序列号
-    dev_readsnr(dukaqi_id,15,sndata);
-    qDebug()<<"序列号"<<sndata;
+//    //获取序列号
+//    dev_readsnr(dukaqi_id,15,sndata);
+//    qDebug()<<"序列号"<<sndata;
 
     //dev_beep(dukaqi_id,2,5,2);
     /*/显式加载动态库

@@ -4,13 +4,21 @@
 #include <QDebug>
 #include <QFile>
 
+
 main_ui::main_ui(QWidget *parent) :
     QDialog(parent),
 ui(new Ui::main_ui)
 {
     ui->setupUi(this);
     timerID = startTimer(500);
-    killTimer(timerID);
+    //timer2ID = startTimer(500);
+    //qDebug()<<"初始化身份证端口："<<InitCommExt();
+    ICReader =open_device(0,0);
+    if(ICReader == INVALID_HANDLE_VALUE)
+    qDebug()<<"IC读卡器打开失败";
+    else
+        qDebug()<<"IC读卡器打开成功";
+
 }
 
 main_ui::~main_ui()
@@ -18,13 +26,42 @@ main_ui::~main_ui()
     delete ui;
 }
 
-void main_ui::timerEvent(QTimerEvent *)
+void main_ui::timerEvent(QTimerEvent *timer)
 {
 
+    unsigned char UID[4]={0};
+    unsigned char Bkey[]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0};
+    char data[16];
+    unsigned char readdata[16];
+    QString qdata("我的名字叫陈威");
+    QByteArray qarrydata=qdata.toLocal8Bit();
+    strcpy(data,qarrydata.data());
+    if(timer->timerId()==timerID)
+    {
+        //qDebug()<<"timer";
+        //if(rf_reset(ICReader)==0)
+         //{
+            if(rf_card(ICReader,0,UID)==0)
+            {
+                dev_beep(ICReader,2,0,1);
+                qDebug("The UID is:%X%X%X%X",UID[0],UID[1],UID[2],UID[3]);
+                if(rf_authentication_key(ICReader,1,8,Bkey)==0)
+                {
 
-    /*
-    if(GetDeviceID(id_devid))
-    {*/
+                    qDebug()<<"认证成功";
+
+                    //rf_write(ICReader,8,(unsigned char*)data);
+                    rf_read(ICReader,8,readdata);
+                    qDebug()<<"读取值"<<QString((char*)readdata).toStdU16String();
+                    qDebug()<<"写入成功";
+                }
+
+            }
+        // }
+    }
+
+    /*if(timer->timerId()==timer2ID)
+    {
      if(Authenticate())
      {
         qDebug()<<"鉴权成功";
@@ -105,6 +142,6 @@ void main_ui::timerEvent(QTimerEvent *)
     }
 
     qDebug()<<"鉴权失败";
-
+    }*/
 }
 
