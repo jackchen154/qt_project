@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -29,20 +30,23 @@ SOURCES += \
     subwidgets.cpp \
     myui.cpp \
     zidgyikongjian.cpp \
-    dialog.cpp
+    dialog.cpp \
+    serial_window.cpp
 
 HEADERS += \
         mywidget.h \
     subwidgets.h \
     myui.h \
     zidgyikongjian.h \
-    dialog.h
+    dialog.h \
+    serial_window.h
 
 CONFIG += C++11
 
 FORMS += \
     myui.ui \
-    dialog.ui
+    dialog.ui \
+    serial_window.ui
 
 RESOURCES += \
     myresource.qrc
