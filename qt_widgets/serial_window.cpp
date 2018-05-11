@@ -114,7 +114,8 @@ void serial_window::on_openButton_clicked()
 
 void serial_window::on_sendButton_clicked()
 {
-    serial->write(ui->textEdit->toPlainText().toLatin1());
+    serial->write(ui->textEdit->toPlainText().toLocal8Bit());
+   // serial->write(ui->textEdit->toPlainText().toUtf8());
 }
 
 //读取接收到的数据
@@ -175,3 +176,61 @@ void serial_window::on_checkBox_clicked()
 
 
 }
+
+//hex发送
+void serial_window::on_pushButton_2_clicked()
+{
+    //QString send_str = ui->textEdit->toPlainText();
+    //QByteArray send_byte =send_str;
+    QString a = "a17d f1";
+    qDebug()<<a.mid(0,2).to;
+    //serial->write(QString2Hex(send_str));
+}
+
+QByteArray serial_window::QString2Hex(QString str)
+{
+    QByteArray senddata;
+    qDebug("QString2Hex\n");
+            int hexdata,lowhexdata;
+            int hexdatalen = 0;
+            int len = str.length();
+            senddata.resize(len/2);
+            char lstr,hstr;
+            for(int i=0; i<len; )
+            {
+                hstr=str[i].toLatin1();
+                if(hstr == ' ')
+                {
+                    i++;
+                    continue;
+                }
+                i++;
+                if(i >= len)
+                    break;
+                lstr = str[i].toLatin1();
+                hexdata = ConvertHexChar(hstr);
+                lowhexdata = ConvertHexChar(lstr);
+                if((hexdata == 16) || (lowhexdata == 16))
+                    break;
+                else
+                    hexdata = hexdata*16+lowhexdata;
+                i++;
+                senddata[hexdatalen] = (char)hexdata;
+                hexdatalen++;
+            }
+            senddata.resize(hexdatalen);
+            return senddata;
+}
+char serial_window::ConvertHexChar(char ch)
+{
+    qDebug("ConvertHexChar\n");
+    if((ch >= '0') && (ch <= '9'))
+                return ch-0x30;
+            else if((ch >= 'A') && (ch <= 'F'))
+                return ch-'A'+10;
+            else if((ch >= 'a') && (ch <= 'f'))
+                return ch-'a'+10;
+            else return (-1);
+}
+
+
