@@ -182,9 +182,27 @@ void serial_window::on_pushButton_2_clicked()
 {
     //QString send_str = ui->textEdit->toPlainText();
     //QByteArray send_byte =send_str;
-    QString a = "a17d f1";
-    qDebug()<<a.mid(0,2).to;
-    //serial->write(QString2Hex(send_str));
+    int i;
+    unsigned char H,L;
+    QString a = "AA 55 CC 11 F1 dd ff";
+    QByteArray c;
+    for(i=2;i<=a.size();i=i+3)
+    {
+        if(a.at(i)!=' ')//格式判断
+        {
+          qDebug()<<"格式错误，必须以空格分开！";
+          //return;
+          break;
+        }
+    }
+    for(i=0;i<a.size();i=i+3)
+    {
+        QByteArray b(a.mid(i,2).toLatin1());
+        H=ConvertHexChar(b.at(0));
+        L=ConvertHexChar(b.at(1));
+        c +=(H<<4|L);
+    }
+    qDebug("%x %x %x %x %x ",c.at(0),c.at(1),c.at(2),c.at(3),c.at(4));
 }
 
 QByteArray serial_window::QString2Hex(QString str)
