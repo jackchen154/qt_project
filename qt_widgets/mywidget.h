@@ -4,12 +4,14 @@
 #include <QMainWindow>
 #include<QPushButton>
 #include <subwidgets.h>
+#include <QTextEdit>
 class myWidget : public QMainWindow
 {
     Q_OBJECT
 
 public:
     myWidget(QWidget *parent = 0);
+    QTextEdit *bianjiqu;
     void anxia_b2();
     void anxia_b3();
     //void chuli_sub();//处理信号不带参数的槽函数

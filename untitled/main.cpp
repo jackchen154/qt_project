@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
     QApplication a(argc, argv);
     main_ui mui;
-   // mui.show();
+    mui.show();
 
 //    HANDLE dukaqi_id;
 //    unsigned char verlen=0;

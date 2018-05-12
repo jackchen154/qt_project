@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QDebug>//可以打印调试信息到控制台
+#include <QFile>
 
 myWidget::myWidget(QWidget *parent): QMainWindow(parent)
 {
@@ -33,15 +34,39 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
     //菜单栏部分
     QMenuBar *caidanlan =menuBar();//新建一个菜单栏
     QMenu *cwenjian = caidanlan->addMenu("文件");//添加菜单
-    QAction *xinjianac= cwenjian->addAction("新建");//添加菜单项，并返回一个动作
+    QAction *xinjianac= cwenjian->addAction("打开");//添加菜单项，并返回一个动作
     connect(xinjianac,&QAction::triggered,
             [=]()
             {
-              qDebug()<<"新建被按下";
+              QString dir = QFileDialog::getOpenFileName(this,"打开","../",
+                                                         "TXT(*.txt);;WORLD(.wold)");
+              if(!dir.isEmpty())//判断是否有该文件
+              {
+                 QFile txt_file(dir);//文件所在的路径
+                 if(txt_file.open(QIODevice::ReadOnly)==true)//打开文件
+                 {
+                     /*
+                     //一次性读取readall,读取文件默认只识别UTF8的编码，其他为乱码
+                     QByteArray array = txt_file.readAll();
+                     bianjiqu->setText(array);
+                     */
+
+                     //一行一行的读取
+                     QByteArray array;
+                     while(txt_file.atEnd() == false)//判断有无到达文件末尾
+                     {
+                         array += txt_file.readLine();//循环读取1行
+                     }
+
+                    bianjiqu->setText(array);//将读取完毕的数据丢到文本编辑区
+                 }
+                 txt_file.close();//关闭文件
+              }
+
             }
             );//处理按下新建按钮后的动作
     cwenjian->addSeparator();//添加一条分割线
-    cwenjian->addAction("打开");//再添加一个菜单项
+    cwenjian->addAction("保存");//再添加一个菜单项
 
     //工具栏部分(工具栏是菜单项的快捷方式)
     QToolBar *gongjulan =addToolBar("gongjulan");//新建一个工具栏
@@ -69,7 +94,8 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
     zhuangtailan->addPermanentWidget(new QLabel("从右向左添加一个label",this));//从右向左添加
 
     //核心控件部分
-    QTextEdit *bianjiqu = new QTextEdit(this);//创建一个文本编辑区对象
+    //QTextEdit *bianjiqu = new QTextEdit(this);//创建一个文本编辑区对象
+    bianjiqu = new QTextEdit(this);
     setCentralWidget(bianjiqu);//设置中心区域为文本编辑区
 
     //浮动窗口部分

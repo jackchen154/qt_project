@@ -3,6 +3,7 @@
 #include "termb.h"
 #include <QDebug>
 #include <QFile>
+#include <QMessageBox>
 
 
 main_ui::main_ui(QWidget *parent) :
@@ -10,7 +11,8 @@ main_ui::main_ui(QWidget *parent) :
 ui(new Ui::main_ui)
 {
     ui->setupUi(this);
-    timerID = startTimer(500);
+
+
     //timer2ID = startTimer(500);
     //qDebug()<<"初始化身份证端口："<<InitCommExt();
     ICReader =open_device(0,0);
@@ -30,36 +32,23 @@ void main_ui::timerEvent(QTimerEvent *timer)
 {
 
     unsigned char UID[4]={0};
-    unsigned char Bkey[]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0};
-    char data[16];
-    unsigned char readdata[16];
-    QString qdata("我的名字叫陈威");
-    QByteArray qarrydata=qdata.toLocal8Bit();
-    strcpy(data,qarrydata.data());
+    unsigned char Bkey[]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0};    
+
     if(timer->timerId()==timerID)
     {
         //qDebug()<<"timer";
-        //if(rf_reset(ICReader)==0)
-         //{
+
             if(rf_card(ICReader,0,UID)==0)
             {
                 dev_beep(ICReader,2,0,1);
                 qDebug("The UID is:%X%X%X%X",UID[0],UID[1],UID[2],UID[3]);
-                if(rf_authentication_key(ICReader,1,8,Bkey)==0)
+                if(rf_authentication_key(ICReader,1,(ui->sanqu_mun->currentText().toInt())*4,Bkey)==0)
                 {
-
                     qDebug()<<"认证成功";
-
-                    //rf_write(ICReader,8,(unsigned char*)data);
-                    rf_read(ICReader,8,readdata);
-                    qDebug()<<"读取值"<<QString((char*)readdata).toStdU16String();
-                    qDebug()<<"写入成功";
+                    M1card_dushanqu(ui->sanqu_mun->currentText().toInt());
                 }
-
-            }
-        // }
+             }
     }
-
     /*if(timer->timerId()==timer2ID)
     {
      if(Authenticate())
@@ -145,3 +134,104 @@ void main_ui::timerEvent(QTimerEvent *timer)
     }*/
 }
 
+void main_ui::M1card_xieshanqu(int shanqumun,QString str)
+{
+    char data[48];
+    char buf[16];    
+    unsigned char i=0,j=0,mun=shanqumun*4;
+    QByteArray qarrydata=str.toLocal8Bit();
+    qDebug()<<qarrydata.size();
+    if(qarrydata.size()>48||shanqumun>16)
+     {
+       int ret= QMessageBox::critical(this,"警告!","扇区号错误或字符数已经超过扇区存储范围(最大24个汉字或48个字符),请重新输入！");
+       if(ret==QMessageBox::Yes)
+        main_ui::close();
+    }
+    else
+    {
+
+     strcpy(data,qarrydata.data());
+     memset(buf,0,16);//清空扇区
+     for(i=0;i<3;i++)
+     {
+       rf_write(ICReader,mun+i,(unsigned char*)buf);
+     }
+
+     for(i=0;i<=48;i++)
+     {
+         if(j==16)
+         {
+             rf_write(ICReader,mun++,(unsigned char*)buf);
+             j=0;
+             memset(buf,0,16);
+             qDebug()<<"写入成功";
+         }
+         if(data[i]==0)
+         {
+            rf_write(ICReader,mun++,(unsigned char*)buf);
+            break;
+         }
+         else
+         {
+           buf[j]=data[i];
+         }
+         j++;
+     }
+
+    }
+}
+void main_ui::M1card_dushanqu(int shanqumun)
+{
+    unsigned char readdata[16];
+    unsigned char buf[48];
+    int mun=shanqumun*4;
+    int i,j,k=0;
+    for(i=0;i<3;i++)//循环读取3个扇区数据
+    {
+       rf_read(ICReader,mun++,readdata);//读取1个扇区
+       for(j=0;j<16;j++)//将3个扇区的48个字符保存到buf[]中
+       {
+           buf[k]=readdata[j];
+           k++;
+       }
+    }
+    ui->duqu_jieguo->setText(QString::fromLocal8Bit((char *)buf));
+
+}
+
+void main_ui::on_xie_shanqu_clicked()
+{
+    unsigned char UID[4]={0};
+    unsigned char Bkey[]={0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0};
+    if(rf_card(ICReader,0,UID)==0)
+    {
+        dev_beep(ICReader,2,0,1);
+        qDebug("The UID is:%X%X%X%X",UID[0],UID[1],UID[2],UID[3]);
+        if(rf_authentication_key(ICReader,1,(ui->sanqu_mun->currentText().toInt())*4,Bkey)==0)
+        {
+            qDebug()<<"认证成功";
+            QString str(ui->shanqu_txt_in->text());
+            M1card_xieshanqu(ui->sanqu_mun->currentText().toInt(),str);
+            ui->shanqu_txt_in->setText("");
+        }
+    }
+
+}
+
+void main_ui::on_kaishiduqu_clicked()
+{
+
+  if(m1duqu_state==1)
+  {
+      ui->kaishiduqu->setText("开始读取");
+      killTimer(timerID);
+      m1duqu_state=0;
+  }
+  else
+  {
+     ui->kaishiduqu->setText("停止读取");
+     timerID = startTimer(500);
+     m1duqu_state=1;
+  }
+
+}
