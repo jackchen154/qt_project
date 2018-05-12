@@ -1,5 +1,6 @@
 #include "mywidget.h"
 #include "myui.h"
+#include "serial_window.h"
 #include "dialog.h"
 #include "TxPrnMod.h"
 #include <QApplication>
@@ -27,8 +28,8 @@ int main(int argc, char *argv[])
      *
      */
 
-    myWidget mainwindow;
-    mainwindow.show();
+    //myWidget mainwindow;
+    //mainwindow.show();
     //*/
 
 
@@ -60,6 +61,10 @@ int main(int argc, char *argv[])
     Dialog duihuak;
     duihuak.show();
     //*/
+
+    //串口界面
+    serial_window Serial_Window;
+    Serial_Window.show();
     return a.exec();
 }
 
