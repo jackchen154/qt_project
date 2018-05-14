@@ -8,6 +8,7 @@ serial_window::serial_window(QWidget *parent) :
     ui(new Ui::serial_window)
 {
     ui->setupUi(this);
+    textcodec = QTextCodec::codecForName("GBK");//转码显示
     statusbar_data = new QLabel(this);
     ui->statusbar->addWidget(statusbar_data);//使用addwidget是从左往右添加状态信息
     //查找可用的串口，并将端口号放到PortBox中
@@ -110,7 +111,8 @@ void serial_window::on_openButton_clicked()
         ui->send_button1->setEnabled(true);
         ui->send_button2->setEnabled(true);
         ui->send_button3->setEnabled(true);
-        ui->gro
+        ui->recive_window->setEnabled(true);
+        ui->send_window->setEnabled(true);
 
         serial->open(QIODevice::ReadWrite); //打开串口
         //连接信号槽
@@ -141,6 +143,8 @@ void serial_window::on_openButton_clicked()
         ui->send_button1->setEnabled(false);
         ui->send_button2->setEnabled(false);
         ui->send_button3->setEnabled(false);
+        ui->recive_window->setEnabled(false);
+        ui->send_window->setEnabled(false);
 
     }
 
@@ -156,19 +160,18 @@ void serial_window::on_sendButton_clicked()
 //读取接收到的数据
 void serial_window::Read_Data()
 {
-    QByteArray buf;
-    QString strDisplay;
-    buf = serial->readAll();
+
+   QByteArray buf = serial->readLine();
     //int byteLen = serial->bytesAvailable()； //返回串口缓冲区字节数
 
     if(!buf.isEmpty())//如果数据不为空
     {
        // QString str = ui->textBrowser->toPlainText();  //l继续联接之前的数据追加新的数据
         //ui->textBrowser->clear();
-        QString str;
-        if(this->ui->checkBox->isChecked())  //如果是,就以16进制显示
+        QString strDisplay;
+        if(this->ui->Hex_disp->isChecked())  //如果是,就以16进制显示
         {
-            str=buf.toHex().data();
+           QString str = buf.toHex().data();
             for(int i=0;i<str.length();i+=2)
             {
               //strDisplay += "0x";
@@ -179,7 +182,16 @@ void serial_window::Read_Data()
             ui->textBrowser->insertPlainText(strDisplay);
 
         }
-        else
+        else if(this->ui->gbk_disp->isChecked())//gbk显示
+        {
+           ui->textBrowser->append(textcodec->toUnicode(buf));
+        }
+        else if(this->ui->utf8_disp->isChecked())//UTF8显示
+        {
+           QString bb(buf);
+            ui->textBrowser->insertPlainText(bb);
+        }
+        else if(this->ui->unicode_disp->isChecked())//UTF16显示
         {
            ui->textBrowser->insertPlainText(QString::fromLocal8Bit(buf));
         }

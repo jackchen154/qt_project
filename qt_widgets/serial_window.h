@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
+#include <QTextCodec>
 #include "QLabel"
 #include <QTimer>
 namespace Ui {
@@ -18,6 +19,7 @@ public:
     explicit serial_window(QWidget *parent = 0);
     QLabel *statusbar_data;
     QTimer *auto_send_timer;
+    QTextCodec *textcodec;
     QByteArray QString2Hex(QString str);
     char Converchar2realhex(char ch);
     int sendHex(QString a);
