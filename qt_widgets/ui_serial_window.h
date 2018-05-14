@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'serial_window.ui'
 **
-** Created by: Qt User Interface Compiler version 5.8.0
+** Created by: Qt User Interface Compiler version 5.9.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -20,6 +20,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -36,17 +37,18 @@ class Ui_serial_window
 {
 public:
     QWidget *centralwidget;
-    QGridLayout *gridLayout_2;
-    QGroupBox *groupBox;
     QGridLayout *gridLayout;
+    QGroupBox *groupBox;
+    QGridLayout *gridLayout_4;
     QTextBrowser *textBrowser;
     QPushButton *clear;
     QSpacerItem *horizontalSpacer;
     QCheckBox *checkBox;
     QGroupBox *groupBox_3;
-    QGridLayout *gridLayout_4;
+    QGridLayout *gridLayout_2;
+    QSpacerItem *verticalSpacer_2;
     QVBoxLayout *verticalLayout;
-    QHBoxLayout *horizontalLayout;
+    QHBoxLayout *_2;
     QLabel *label;
     QComboBox *PortBox;
     QHBoxLayout *horizontalLayout_2;
@@ -61,7 +63,13 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QLabel *label_5;
     QComboBox *StopBox;
+    QLineEdit *lineEdit_3;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton;
+    QPushButton *pushButton_4;
     QSpacerItem *verticalSpacer;
+    QLineEdit *lineEdit;
+    QLineEdit *lineEdit_2;
     QPushButton *openButton;
     QGroupBox *groupBox_2;
     QGridLayout *gridLayout_3;
@@ -77,12 +85,14 @@ public:
     {
         if (serial_window->objectName().isEmpty())
             serial_window->setObjectName(QStringLiteral("serial_window"));
-        serial_window->resize(661, 540);
-        serial_window->setMinimumSize(QSize(661, 540));
+        serial_window->resize(809, 540);
+        serial_window->setMinimumSize(QSize(809, 540));
+        serial_window->setMaximumSize(QSize(809, 540));
         centralwidget = new QWidget(serial_window);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
-        gridLayout_2 = new QGridLayout(centralwidget);
-        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        centralwidget->setMaximumSize(QSize(809, 491));
+        gridLayout = new QGridLayout(centralwidget);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         groupBox = new QGroupBox(centralwidget);
         groupBox->setObjectName(QStringLiteral("groupBox"));
         groupBox->setMinimumSize(QSize(411, 281));
@@ -92,61 +102,76 @@ public:
         font.setBold(false);
         font.setWeight(50);
         groupBox->setFont(font);
-        gridLayout = new QGridLayout(groupBox);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout_4 = new QGridLayout(groupBox);
+        gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
         textBrowser = new QTextBrowser(groupBox);
         textBrowser->setObjectName(QStringLiteral("textBrowser"));
         textBrowser->setMinimumSize(QSize(391, 221));
 
-        gridLayout->addWidget(textBrowser, 0, 0, 1, 3);
+        gridLayout_4->addWidget(textBrowser, 0, 0, 1, 3);
 
         clear = new QPushButton(groupBox);
         clear->setObjectName(QStringLiteral("clear"));
         clear->setMaximumSize(QSize(75, 23));
 
-        gridLayout->addWidget(clear, 1, 0, 1, 1);
+        gridLayout_4->addWidget(clear, 1, 0, 1, 1);
 
         horizontalSpacer = new QSpacerItem(138, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer, 1, 1, 1, 1);
+        gridLayout_4->addItem(horizontalSpacer, 1, 1, 1, 1);
 
         checkBox = new QCheckBox(groupBox);
         checkBox->setObjectName(QStringLiteral("checkBox"));
         checkBox->setMaximumSize(QSize(77, 19));
 
-        gridLayout->addWidget(checkBox, 1, 2, 1, 1);
+        gridLayout_4->addWidget(checkBox, 1, 2, 1, 1);
 
 
-        gridLayout_2->addWidget(groupBox, 0, 0, 1, 1);
+        gridLayout->addWidget(groupBox, 0, 0, 1, 1);
 
         groupBox_3 = new QGroupBox(centralwidget);
         groupBox_3->setObjectName(QStringLiteral("groupBox_3"));
-        groupBox_3->setMinimumSize(QSize(221, 464));
-        groupBox_3->setMaximumSize(QSize(226, 16777215));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
+        groupBox_3->setSizePolicy(sizePolicy);
+        groupBox_3->setMinimumSize(QSize(230, 466));
+        groupBox_3->setMaximumSize(QSize(230, 16777215));
         groupBox_3->setFont(font);
-        gridLayout_4 = new QGridLayout(groupBox_3);
-        gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
+        gridLayout_2 = new QGridLayout(groupBox_3);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        verticalSpacer_2 = new QSpacerItem(20, 13, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+        gridLayout_2->addItem(verticalSpacer_2, 1, 1, 1, 1);
+
         verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(4);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        verticalLayout->setContentsMargins(1, -1, -1, -1);
+        _2 = new QHBoxLayout();
+        _2->setSpacing(6);
+        _2->setObjectName(QStringLiteral("_2"));
+        _2->setContentsMargins(0, 0, 0, 0);
         label = new QLabel(groupBox_3);
         label->setObjectName(QStringLiteral("label"));
+        label->setMaximumSize(QSize(60, 21));
 
-        horizontalLayout->addWidget(label);
+        _2->addWidget(label);
 
         PortBox = new QComboBox(groupBox_3);
         PortBox->setObjectName(QStringLiteral("PortBox"));
 
-        horizontalLayout->addWidget(PortBox);
+        _2->addWidget(PortBox);
 
 
-        verticalLayout->addLayout(horizontalLayout);
+        verticalLayout->addLayout(_2);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         label_2 = new QLabel(groupBox_3);
         label_2->setObjectName(QStringLiteral("label_2"));
+        label_2->setMaximumSize(QSize(60, 21));
 
         horizontalLayout_2->addWidget(label_2);
 
@@ -162,6 +187,7 @@ public:
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         label_3 = new QLabel(groupBox_3);
         label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setMaximumSize(QSize(60, 21));
 
         horizontalLayout_3->addWidget(label_3);
 
@@ -177,6 +203,7 @@ public:
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         label_4 = new QLabel(groupBox_3);
         label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setMaximumSize(QSize(60, 21));
 
         horizontalLayout_4->addWidget(label_4);
 
@@ -192,6 +219,7 @@ public:
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         label_5 = new QLabel(groupBox_3);
         label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setMaximumSize(QSize(60, 21));
 
         horizontalLayout_5->addWidget(label_5);
 
@@ -204,19 +232,59 @@ public:
         verticalLayout->addLayout(horizontalLayout_5);
 
 
-        gridLayout_4->addLayout(verticalLayout, 0, 0, 1, 1);
+        gridLayout_2->addLayout(verticalLayout, 0, 0, 1, 2);
 
-        verticalSpacer = new QSpacerItem(137, 268, QSizePolicy::Minimum, QSizePolicy::Fixed);
+        lineEdit_3 = new QLineEdit(groupBox_3);
+        lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
+        lineEdit_3->setMinimumSize(QSize(164, 20));
+        lineEdit_3->setMaximumSize(QSize(169, 21));
 
-        gridLayout_4->addItem(verticalSpacer, 1, 0, 1, 1);
+        gridLayout_2->addWidget(lineEdit_3, 4, 1, 1, 1);
+
+        pushButton_3 = new QPushButton(groupBox_3);
+        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
+        pushButton_3->setMinimumSize(QSize(22, 22));
+
+        gridLayout_2->addWidget(pushButton_3, 3, 0, 1, 1);
+
+        pushButton = new QPushButton(groupBox_3);
+        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton->setMinimumSize(QSize(22, 22));
+
+        gridLayout_2->addWidget(pushButton, 2, 0, 1, 1);
+
+        pushButton_4 = new QPushButton(groupBox_3);
+        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        pushButton_4->setMinimumSize(QSize(22, 22));
+
+        gridLayout_2->addWidget(pushButton_4, 4, 0, 1, 1);
+
+        verticalSpacer = new QSpacerItem(20, 157, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        gridLayout_2->addItem(verticalSpacer, 5, 1, 1, 1);
+
+        lineEdit = new QLineEdit(groupBox_3);
+        lineEdit->setObjectName(QStringLiteral("lineEdit"));
+        lineEdit->setMinimumSize(QSize(164, 20));
+        lineEdit->setMaximumSize(QSize(169, 21));
+
+        gridLayout_2->addWidget(lineEdit, 2, 1, 1, 1);
+
+        lineEdit_2 = new QLineEdit(groupBox_3);
+        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
+        lineEdit_2->setMinimumSize(QSize(164, 20));
+        lineEdit_2->setMaximumSize(QSize(169, 21));
+
+        gridLayout_2->addWidget(lineEdit_2, 3, 1, 1, 1);
 
         openButton = new QPushButton(groupBox_3);
         openButton->setObjectName(QStringLiteral("openButton"));
+        openButton->setMinimumSize(QSize(209, 23));
 
-        gridLayout_4->addWidget(openButton, 2, 0, 1, 1);
+        gridLayout_2->addWidget(openButton, 6, 0, 1, 2);
 
 
-        gridLayout_2->addWidget(groupBox_3, 0, 1, 2, 1);
+        gridLayout->addWidget(groupBox_3, 0, 1, 2, 1);
 
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
@@ -253,12 +321,12 @@ public:
         gridLayout_3->addWidget(sendButton, 1, 3, 1, 1);
 
 
-        gridLayout_2->addWidget(groupBox_2, 1, 0, 1, 1);
+        gridLayout->addWidget(groupBox_2, 1, 0, 1, 1);
 
         serial_window->setCentralWidget(centralwidget);
         menubar = new QMenuBar(serial_window);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 661, 23));
+        menubar->setGeometry(QRect(0, 0, 809, 25));
         serial_window->setMenuBar(menubar);
         statusbar = new QStatusBar(serial_window);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -281,6 +349,7 @@ public:
         BaudBox->clear();
         BaudBox->insertItems(0, QStringList()
          << QApplication::translate("serial_window", "115200", Q_NULLPTR)
+         << QApplication::translate("serial_window", "57600", Q_NULLPTR)
          << QApplication::translate("serial_window", "19200", Q_NULLPTR)
          << QApplication::translate("serial_window", "38400", Q_NULLPTR)
          << QApplication::translate("serial_window", "9600", Q_NULLPTR)
@@ -305,9 +374,11 @@ public:
         StopBox->clear();
         StopBox->insertItems(0, QStringList()
          << QApplication::translate("serial_window", "1", Q_NULLPTR)
-         << QApplication::translate("serial_window", "1.5", Q_NULLPTR)
          << QApplication::translate("serial_window", "2", Q_NULLPTR)
         );
+        pushButton_3->setText(QApplication::translate("serial_window", "2", Q_NULLPTR));
+        pushButton->setText(QApplication::translate("serial_window", "1", Q_NULLPTR));
+        pushButton_4->setText(QApplication::translate("serial_window", "3", Q_NULLPTR));
         openButton->setText(QApplication::translate("serial_window", "\346\211\223\345\274\200\344\270\262\345\217\243", Q_NULLPTR));
         groupBox_2->setTitle(QApplication::translate("serial_window", "\345\217\221\351\200\201\347\252\227\345\217\243", Q_NULLPTR));
         clearsend->setText(QApplication::translate("serial_window", "\346\270\205\347\251\272\345\217\221\351\200\201", Q_NULLPTR));

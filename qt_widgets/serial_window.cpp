@@ -1,6 +1,7 @@
 #include "serial_window.h"
 #include "ui_serial_window.h"
 #include <QDebug>
+#include <QMessageBox>
 serial_window::serial_window(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::serial_window)
@@ -11,25 +12,19 @@ serial_window::serial_window(QWidget *parent) :
     //查找可用的串口，并将端口号放到PortBox中
     foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
     {
-        //qDebug() << "Name : " << info.portName();
-       // qDebug() << "Description : " << info.description();
-       // qDebug() << "Manufacturer: " << info.manufacturer();
         QSerialPort serial;
         serial.setPort(info);
         if(serial.open(QIODevice::ReadWrite))
         {
             ui->PortBox->addItem(serial.portName());
             serial.close();
-
         }
     }
-
-
-    ui->BaudBox->setCurrentIndex(3);    //设置波特率下拉菜单默认显示第三项
+    ui->BaudBox->setCurrentIndex(4);    //设置波特率下拉菜单默认显示9600
     ui->sendButton->setEnabled(false);  //关闭发送按钮的使能
-
-    qDebug() << tr("界面设定成功！");
-
+    ui->pushButton_2->setEnabled(false);
+    ui->clear->setEnabled(false);
+    ui->clearsend->setEnabled(false);
 }
 
 serial_window::~serial_window()
@@ -45,23 +40,24 @@ void serial_window::on_openButton_clicked()
 
         serial->setPortName(ui->PortBox->currentText());  //设置串口名
 
-        serial->open(QIODevice::ReadWrite); //打开串口
-
         serial->setBaudRate(ui->BaudBox->currentText().toInt());   //设置波特率
-
-        switch(ui->BitNumBox->currentIndex())  //设置数据位
+        switch(ui->BitNumBox->currentText().toInt())  //设置数据位
         {
               case 8: serial->setDataBits(QSerialPort::Data8); break;
+              case 7: serial->setDataBits(QSerialPort::Data7); break;
+              case 6: serial->setDataBits(QSerialPort::Data6); break;
+              case 5: serial->setDataBits(QSerialPort::Data5); break;
               default: break;
         }
 
-        switch(ui->ParityBox->currentIndex())  //设置奇偶校验
-        {
-           case 0: serial->setParity(QSerialPort::NoParity); break;
-           default: break;
-        }
+        if(ui->ParityBox->currentText()=="无")
+            serial->setParity(QSerialPort::NoParity);
+        else if(ui->ParityBox->currentText()=="奇校验")
+            serial->setParity(QSerialPort::OddParity);
+        else if(ui->ParityBox->currentText()=="偶校验")
+            serial->setParity(QSerialPort::EvenParity);
 
-        switch(ui->StopBox->currentIndex())   //设置停止位
+        switch(ui->StopBox->currentText().toInt())   //设置停止位
         {
             case 1: serial->setStopBits(QSerialPort::OneStop); break;
             case 2: serial->setStopBits(QSerialPort::TwoStop); break;
@@ -74,12 +70,7 @@ void serial_window::on_openButton_clicked()
         //qDebug() << "Description : " << info.description();
         //qDebug() << "Manufacturer: " << info.manufacturer();
 
-        statusbar_data->setText(QString ("%1已经打开 设备厂商：%2 设备描述：%3").arg(info.portName()).arg(info.manufacturer()).arg(info.description()));
-
-        //B:
-       // zhuangtailan->addWidget(new QLabel("从左到右添加一个label",this));//以无名对象的方式添加
-        //C:
-        //zhuangtailan->addPermanentWidget(new QLabel("从右向左添加一个label",this));//从右向左添加
+        statusbar_data->setText(QString ("%1已经打开   设备厂商:%2  设备描述:%3").arg(info.portName()).arg(info.manufacturer()).arg(info.description()));
         //关闭串口设置使能
         ui->PortBox->setEnabled(false);
         ui->BaudBox->setEnabled(false);
@@ -89,6 +80,11 @@ void serial_window::on_openButton_clicked()
 
         ui->openButton->setText(tr("关闭串口"));
         ui->sendButton->setEnabled(true);
+        ui->pushButton_2->setEnabled(true);
+        ui->clear->setEnabled(true);
+        ui->clearsend->setEnabled(true);
+
+        serial->open(QIODevice::ReadWrite); //打开串口
         //连接信号槽
         QObject::connect(serial, &QSerialPort::readyRead, this, &serial_window::Read_Data);
     }
@@ -107,6 +103,10 @@ void serial_window::on_openButton_clicked()
         ui->StopBox->setEnabled(true);
         ui->openButton->setText(tr("打开串口"));
         ui->sendButton->setEnabled(false);
+        ui->pushButton_2->setEnabled(false);
+        ui->clear->setEnabled(false);
+        ui->clearsend->setEnabled(false);
+
     }
 
 }
@@ -136,7 +136,7 @@ void serial_window::Read_Data()
             str=buf.toHex().data();
             for(int i=0;i<str.length();i+=2)
             {
-              strDisplay += "0x";
+              //strDisplay += "0x";
               QString st = str.mid(i,2);
               strDisplay += st.toUpper();
               strDisplay += " ";
@@ -171,6 +171,8 @@ void serial_window::on_clearsend_clicked()
 
 
 
+
+
 void serial_window::on_checkBox_clicked()
 {
 
@@ -179,69 +181,48 @@ void serial_window::on_checkBox_clicked()
 
 //hex发送
 void serial_window::on_pushButton_2_clicked()
+{    
+  sendHex(ui->textEdit->toPlainText());
+}
+
+int serial_window::sendHex(QString a)
 {
-    //QString send_str = ui->textEdit->toPlainText();
-    //QByteArray send_byte =send_str;
-    int i;
-    unsigned char H,L;
-    QString a = "AA 55 CC 11 F1 dd ff";
     QByteArray c;
-    for(i=2;i<=a.size();i=i+3)
+    int i;
+    for(i=2;i<a.size();i=i+3)
     {
         if(a.at(i)!=' ')//格式判断
         {
-          qDebug()<<"格式错误，必须以空格分开！";
-          //return;
-          break;
+          QMessageBox::warning(this,"格式错误！","16进制数之间请用空格隔开！");
+          return -1;
         }
     }
+
     for(i=0;i<a.size();i=i+3)
     {
         QByteArray b(a.mid(i,2).toLatin1());
-        H=ConvertHexChar(b.at(0));
-        L=ConvertHexChar(b.at(1));
-        c +=(H<<4|L);
-    }
-    qDebug("%x %x %x %x %x ",c.at(0),c.at(1),c.at(2),c.at(3),c.at(4));
+        if(b.size()!=2)//16进制合法性判断
+        {
+           QMessageBox::warning(this,"格式错误！","请正确书写16进制格式！");
+           c.clear();
+           return -1;
+        }
+
+          if(Converchar2realhex(b.at(0))==-1||Converchar2realhex(b.at(1))==-1)
+          {
+             QMessageBox::warning(this,"格式错误！","包含不正确字符,字符范围:0~9,a~f)");
+             c.clear();
+             return -1;
+          }
+          else
+          c +=(Converchar2realhex(b.at(0)))*16 + Converchar2realhex(b.at(1));
+       }
+       serial->write(c);
 }
 
-QByteArray serial_window::QString2Hex(QString str)
+
+char serial_window::Converchar2realhex(char ch)
 {
-    QByteArray senddata;
-    qDebug("QString2Hex\n");
-            int hexdata,lowhexdata;
-            int hexdatalen = 0;
-            int len = str.length();
-            senddata.resize(len/2);
-            char lstr,hstr;
-            for(int i=0; i<len; )
-            {
-                hstr=str[i].toLatin1();
-                if(hstr == ' ')
-                {
-                    i++;
-                    continue;
-                }
-                i++;
-                if(i >= len)
-                    break;
-                lstr = str[i].toLatin1();
-                hexdata = ConvertHexChar(hstr);
-                lowhexdata = ConvertHexChar(lstr);
-                if((hexdata == 16) || (lowhexdata == 16))
-                    break;
-                else
-                    hexdata = hexdata*16+lowhexdata;
-                i++;
-                senddata[hexdatalen] = (char)hexdata;
-                hexdatalen++;
-            }
-            senddata.resize(hexdatalen);
-            return senddata;
-}
-char serial_window::ConvertHexChar(char ch)
-{
-    qDebug("ConvertHexChar\n");
     if((ch >= '0') && (ch <= '9'))
                 return ch-0x30;
             else if((ch >= 'A') && (ch <= 'F'))

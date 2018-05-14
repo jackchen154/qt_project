@@ -6,13 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>661</width>
+    <width>809</width>
     <height>540</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>661</width>
+    <width>809</width>
+    <height>540</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>809</width>
     <height>540</height>
    </size>
   </property>
@@ -20,7 +26,13 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_2">
+   <property name="maximumSize">
+    <size>
+     <width>809</width>
+     <height>491</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <widget class="QGroupBox" name="groupBox">
       <property name="minimumSize">
@@ -40,7 +52,7 @@
       <property name="title">
        <string>接收窗口</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
+      <layout class="QGridLayout" name="gridLayout_4">
        <item row="0" column="0" colspan="3">
         <widget class="QTextBrowser" name="textBrowser">
          <property name="minimumSize">
@@ -98,15 +110,21 @@
     </item>
     <item row="0" column="1" rowspan="2">
      <widget class="QGroupBox" name="groupBox_3">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
-        <width>221</width>
-        <height>464</height>
+        <width>230</width>
+        <height>466</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>226</width>
+        <width>230</width>
         <height>16777215</height>
        </size>
       </property>
@@ -121,13 +139,56 @@
       <property name="title">
        <string>串口设置</string>
       </property>
-      <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="1">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeType">
+          <enum>QSizePolicy::Fixed</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>13</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0" colspan="2">
         <layout class="QVBoxLayout" name="verticalLayout">
+         <property name="spacing">
+          <number>4</number>
+         </property>
+         <property name="leftMargin">
+          <number>1</number>
+         </property>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+          <layout class="QHBoxLayout" name="_2">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QLabel" name="label">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>21</height>
+              </size>
+             </property>
              <property name="text">
               <string>端口号：</string>
              </property>
@@ -142,6 +203,12 @@
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
             <widget class="QLabel" name="label_2">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>21</height>
+              </size>
+             </property>
              <property name="text">
               <string>波特率：</string>
              </property>
@@ -152,6 +219,11 @@
              <item>
               <property name="text">
                <string>115200</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>57600</string>
               </property>
              </item>
              <item>
@@ -182,6 +254,12 @@
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
             <widget class="QLabel" name="label_3">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>21</height>
+              </size>
+             </property>
              <property name="text">
               <string>数据位：</string>
              </property>
@@ -217,6 +295,12 @@
           <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QLabel" name="label_4">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>21</height>
+              </size>
+             </property>
              <property name="text">
               <string>校验位：</string>
              </property>
@@ -247,6 +331,12 @@
           <layout class="QHBoxLayout" name="horizontalLayout_5">
            <item>
             <widget class="QLabel" name="label_5">
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>21</height>
+              </size>
+             </property>
              <property name="text">
               <string>停止位：</string>
              </property>
@@ -261,11 +351,6 @@
              </item>
              <item>
               <property name="text">
-               <string>1.5</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
                <string>2</string>
               </property>
              </item>
@@ -275,24 +360,114 @@
          </item>
         </layout>
        </item>
-       <item row="1" column="0">
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="lineEdit_3">
+         <property name="minimumSize">
+          <size>
+           <width>164</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>169</width>
+           <height>21</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="minimumSize">
+          <size>
+           <width>22</width>
+           <height>22</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>2</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pushButton">
+         <property name="minimumSize">
+          <size>
+           <width>22</width>
+           <height>22</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QPushButton" name="pushButton_4">
+         <property name="minimumSize">
+          <size>
+           <width>22</width>
+           <height>22</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>3</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
         <spacer name="verticalSpacer">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
-         </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>137</width>
-           <height>268</height>
+           <width>20</width>
+           <height>157</height>
           </size>
          </property>
         </spacer>
        </item>
-       <item row="2" column="0">
+       <item row="2" column="1">
+        <widget class="QLineEdit" name="lineEdit">
+         <property name="minimumSize">
+          <size>
+           <width>164</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>169</width>
+           <height>21</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLineEdit" name="lineEdit_2">
+         <property name="minimumSize">
+          <size>
+           <width>164</width>
+           <height>20</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>169</width>
+           <height>21</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="2">
         <widget class="QPushButton" name="openButton">
+         <property name="minimumSize">
+          <size>
+           <width>209</width>
+           <height>23</height>
+          </size>
+         </property>
          <property name="text">
           <string>打开串口</string>
          </property>
@@ -396,8 +571,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>661</width>
-     <height>23</height>
+     <width>809</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>

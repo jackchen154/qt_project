@@ -17,7 +17,8 @@ public:
     explicit serial_window(QWidget *parent = 0);
     QLabel *statusbar_data;
     QByteArray QString2Hex(QString str);
-    char ConvertHexChar(char ch);
+    char Converchar2realhex(char ch);
+    int sendHex(QString a);
     ~serial_window();
 
 private slots:
@@ -27,11 +28,6 @@ private slots:
     void Read_Data();
     void on_clear_clicked();
     void on_clearsend_clicked();
-
-    void on_char_send_clicked();
-
-    void on_hex_send_clicked();
-
     void on_checkBox_clicked();
    void on_pushButton_2_clicked();
 
