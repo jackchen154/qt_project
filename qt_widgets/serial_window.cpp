@@ -2,6 +2,7 @@
 #include "ui_serial_window.h"
 #include <QDebug>
 #include <QMessageBox>
+
 serial_window::serial_window(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::serial_window)
@@ -25,6 +26,28 @@ serial_window::serial_window(QWidget *parent) :
     ui->pushButton_2->setEnabled(false);
     ui->clear->setEnabled(false);
     ui->clearsend->setEnabled(false);
+    ui->auto_send->setEnabled(false);
+    ui->send_button1->setEnabled(false);
+    ui->send_button2->setEnabled(false);
+    ui->send_button3->setEnabled(false);
+    auto_send_timer =new QTimer();//自动发送定时器
+    auto_send_timer->setInterval(ui->send_interval->value());//读取时间间隔
+    connect(auto_send_timer,&QTimer::timeout,//时间溢出去扫描哪一个选项被选中，并将选中的内容发送出去
+            [=]()
+            {
+              if(ui->send_check1->isChecked())
+              {
+                sendHex(ui->send_input1->text());
+              }
+              else if(ui->send_check2->isChecked())
+              {
+                sendHex(ui->send_input2->text());
+              }
+              else if(ui->send_check3->isChecked())
+              {
+                sendHex(ui->send_input3->text());
+               }
+            });
 }
 
 serial_window::~serial_window()
@@ -83,6 +106,11 @@ void serial_window::on_openButton_clicked()
         ui->pushButton_2->setEnabled(true);
         ui->clear->setEnabled(true);
         ui->clearsend->setEnabled(true);
+        ui->auto_send->setEnabled(true);
+        ui->send_button1->setEnabled(true);
+        ui->send_button2->setEnabled(true);
+        ui->send_button3->setEnabled(true);
+        ui->gro
 
         serial->open(QIODevice::ReadWrite); //打开串口
         //连接信号槽
@@ -90,6 +118,9 @@ void serial_window::on_openButton_clicked()
     }
     else
     {
+        //关闭自动发送
+        ui->auto_send->setCheckState(Qt::Unchecked);
+        auto_send_timer->stop();
         //关闭串口
         serial->clear();
         serial->close();
@@ -106,6 +137,10 @@ void serial_window::on_openButton_clicked()
         ui->pushButton_2->setEnabled(false);
         ui->clear->setEnabled(false);
         ui->clearsend->setEnabled(false);
+        ui->auto_send->setEnabled(false);
+        ui->send_button1->setEnabled(false);
+        ui->send_button2->setEnabled(false);
+        ui->send_button3->setEnabled(false);
 
     }
 
@@ -179,12 +214,13 @@ void serial_window::on_checkBox_clicked()
 
 }
 
-//hex发送
+//hex发送按钮
 void serial_window::on_pushButton_2_clicked()
 {    
   sendHex(ui->textEdit->toPlainText());
 }
 
+//hex发送函数
 int serial_window::sendHex(QString a)
 {
     QByteArray c;
@@ -194,6 +230,8 @@ int serial_window::sendHex(QString a)
         if(a.at(i)!=' ')//格式判断
         {
           QMessageBox::warning(this,"格式错误！","16进制数之间请用空格隔开！");
+          ui->auto_send->setCheckState(Qt::Unchecked);
+          auto_send_timer->stop();
           return -1;
         }
     }
@@ -204,20 +242,25 @@ int serial_window::sendHex(QString a)
         if(b.size()!=2)//16进制合法性判断
         {
            QMessageBox::warning(this,"格式错误！","请正确书写16进制格式！");
+           ui->auto_send->setCheckState(Qt::Unchecked);
+           auto_send_timer->stop();
            c.clear();
            return -1;
         }
 
-          if(Converchar2realhex(b.at(0))==-1||Converchar2realhex(b.at(1))==-1)
+          if(Converchar2realhex(b.at(0))==-1||Converchar2realhex(b.at(1))==-1)//字符合法性判断
           {
-             QMessageBox::warning(this,"格式错误！","包含不正确字符,字符范围:0~9,a~f)");
+             QMessageBox::warning(this,"格式错误！","包含不正确字符,字符范围:( 0~9, a~f )");
+             ui->auto_send->setCheckState(Qt::Unchecked);
+             auto_send_timer->stop();
              c.clear();
              return -1;
           }
           else
-          c +=(Converchar2realhex(b.at(0)))*16 + Converchar2realhex(b.at(1));
+          c +=(Converchar2realhex(b.at(0)))*16 + Converchar2realhex(b.at(1));//hex合成
        }
        serial->write(c);
+       return 0;
 }
 
 
@@ -233,3 +276,57 @@ char serial_window::Converchar2realhex(char ch)
 }
 
 
+
+//功能发送按钮1
+void serial_window::on_send_button1_clicked()
+{
+    sendHex(ui->send_input1->text());
+}
+
+//功能发送按钮2
+void serial_window::on_send_button2_clicked()
+{
+    sendHex(ui->send_input2->text());
+}
+
+//功能发送按钮3
+void serial_window::on_send_button3_clicked()
+{
+    sendHex(ui->send_input3->text());
+}
+
+//自动发送按钮
+void serial_window::on_auto_send_clicked()
+{
+    if(ui->auto_send->isChecked())
+        auto_send_timer->start();
+    else
+        auto_send_timer->stop();
+}
+
+//时间设置
+void serial_window::on_send_interval_valueChanged(int arg1)
+{
+    auto_send_timer->setInterval(arg1);
+}
+
+/*//////////////////////////////////////////////////////////////////////
+  切换时关闭自动发送
+void serial_window::on_send_check1_released()
+{
+    ui->auto_send->setCheckState(Qt::Unchecked);
+    auto_send_timer->stop();
+}
+
+void serial_window::on_send_check2_released()
+{
+    ui->auto_send->setCheckState(Qt::Unchecked);
+    auto_send_timer->stop();
+}
+
+void serial_window::on_send_check3_released()
+{
+    ui->auto_send->setCheckState(Qt::Unchecked);
+    auto_send_timer->stop();
+}
+//////////////////////////////////////////////////////////////////////*/

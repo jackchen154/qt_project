@@ -5,6 +5,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 #include "QLabel"
+#include <QTimer>
 namespace Ui {
 class serial_window;
 }
@@ -16,6 +17,7 @@ class serial_window : public QMainWindow
 public:
     explicit serial_window(QWidget *parent = 0);
     QLabel *statusbar_data;
+    QTimer *auto_send_timer;
     QByteArray QString2Hex(QString str);
     char Converchar2realhex(char ch);
     int sendHex(QString a);
@@ -33,9 +35,20 @@ private slots:
 
 
 
+   void on_send_button1_clicked();
+
+   void on_send_button2_clicked();
+
+   void on_send_button3_clicked();
+
+   void on_auto_send_clicked();
+
+   void on_send_interval_valueChanged(int arg1);
 private:
     Ui::serial_window *ui;
     QSerialPort *serial;
+    //void timerEvent(QTimerEvent *event);
+    //int timerID;
 };
 
 #endif // SERIAL_WINDOW_H
