@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'serial_window.ui'
 **
-** Created by: Qt User Interface Compiler version 5.9.1
+** Created by: Qt User Interface Compiler version 5.8.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -49,7 +49,6 @@ public:
     QHBoxLayout *horizontalLayout_6;
     QRadioButton *gbk_disp;
     QRadioButton *utf8_disp;
-    QRadioButton *unicode_disp;
     QRadioButton *Hex_disp;
     QGroupBox *set_window;
     QGridLayout *gridLayout_2;
@@ -155,12 +154,6 @@ public:
         utf8_disp->setMaximumSize(QSize(53, 16));
 
         horizontalLayout_6->addWidget(utf8_disp);
-
-        unicode_disp = new QRadioButton(recive_window);
-        unicode_disp->setObjectName(QStringLiteral("unicode_disp"));
-        unicode_disp->setMaximumSize(QSize(79, 16));
-
-        horizontalLayout_6->addWidget(unicode_disp);
 
         Hex_disp = new QRadioButton(recive_window);
         Hex_disp->setObjectName(QStringLiteral("Hex_disp"));
@@ -414,7 +407,7 @@ public:
         serial_window->setCentralWidget(centralwidget);
         menubar = new QMenuBar(serial_window);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 25));
+        menubar->setGeometry(QRect(0, 0, 800, 23));
         serial_window->setMenuBar(menubar);
         statusbar = new QStatusBar(serial_window);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -433,7 +426,6 @@ public:
         auto_linefeed->setText(QApplication::translate("serial_window", "\350\207\252\345\212\250\346\215\242\350\241\214", Q_NULLPTR));
         gbk_disp->setText(QApplication::translate("serial_window", "GBK", Q_NULLPTR));
         utf8_disp->setText(QApplication::translate("serial_window", "UTF8", Q_NULLPTR));
-        unicode_disp->setText(QApplication::translate("serial_window", "UNICODE", Q_NULLPTR));
         Hex_disp->setText(QApplication::translate("serial_window", "HEX", Q_NULLPTR));
         set_window->setTitle(QApplication::translate("serial_window", "\344\270\262\345\217\243\350\256\276\347\275\256", Q_NULLPTR));
         label->setText(QApplication::translate("serial_window", "\347\253\257\345\217\243\345\217\267\357\274\232", Q_NULLPTR));

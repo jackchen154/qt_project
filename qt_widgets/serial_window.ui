@@ -131,19 +131,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="unicode_disp">
-           <property name="maximumSize">
-            <size>
-             <width>79</width>
-             <height>16</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>UNICODE</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QRadioButton" name="Hex_disp">
            <property name="maximumSize">
             <size>
@@ -689,7 +676,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

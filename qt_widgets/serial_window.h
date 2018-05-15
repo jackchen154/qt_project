@@ -5,7 +5,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QTextCodec>
-#include "QLabel"
+#include <QLabel>
 #include <QTimer>
 namespace Ui {
 class serial_window;
@@ -20,6 +20,9 @@ public:
     QLabel *statusbar_data;
     QTimer *auto_send_timer;
     QTextCodec *textcodec;
+    QLabel *RX_count;
+    QLabel *TX_count;
+    int rx_count=0,tx_count=0;
     QByteArray QString2Hex(QString str);
     char Converchar2realhex(char ch);
     int sendHex(QString a);
@@ -28,12 +31,12 @@ public:
 private slots:
     void on_openButton_clicked();
 
-    void on_sendButton_clicked();
+    void on_sendButton_clicked();//send char
     void Read_Data();
     void on_clear_clicked();
     void on_clearsend_clicked();
     void on_checkBox_clicked();
-   void on_pushButton_2_clicked();
+   void on_pushButton_2_clicked();//send HEX
 
 
 

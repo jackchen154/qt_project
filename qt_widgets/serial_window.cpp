@@ -2,7 +2,7 @@
 #include "ui_serial_window.h"
 #include <QDebug>
 #include <QMessageBox>
-
+#include <QPushButton>
 serial_window::serial_window(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::serial_window)
@@ -11,6 +11,40 @@ serial_window::serial_window(QWidget *parent) :
     textcodec = QTextCodec::codecForName("GBK");//转码显示
     statusbar_data = new QLabel(this);
     ui->statusbar->addWidget(statusbar_data);//使用addwidget是从左往右添加状态信息
+
+    QPushButton *clear_count = new QPushButton(this);
+    clear_count->setText("清零");
+    clear_count->setMaximumSize(30,30);
+    ui->statusbar->addPermanentWidget(clear_count);
+    connect(clear_count,&QPushButton::clicked,
+            [=]()
+            {
+              rx_count=0;
+              tx_count=0;
+              RX_count->setNum(tx_count);
+              TX_count->setNum(tx_count);
+            });
+
+    QLabel *RX_txt = new QLabel(this);
+    RX_txt->setText("RX:");
+    RX_txt->setMaximumSize(30,30);
+    ui->statusbar->addPermanentWidget(RX_txt);
+
+    RX_count = new QLabel(this);
+    RX_count->setNum(tx_count);
+    RX_count->setMinimumSize(30,20);
+    ui->statusbar->addPermanentWidget(RX_count);
+
+    QLabel *TX_txt = new QLabel(this);
+    TX_txt->setText("TX:");
+    TX_txt->setMaximumSize(30,30);
+    ui->statusbar->addPermanentWidget(TX_txt);
+
+    TX_count = new QLabel(this);
+    TX_count->setNum(tx_count);
+    TX_count->setMinimumSize(30,20);
+    ui->statusbar->addPermanentWidget(TX_count);
+
     //查找可用的串口，并将端口号放到PortBox中
     foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
     {
@@ -153,7 +187,11 @@ void serial_window::on_openButton_clicked()
 
 void serial_window::on_sendButton_clicked()
 {
-    serial->write(ui->textEdit->toPlainText().toLocal8Bit());
+   QByteArray send_char = ui->textEdit->toPlainText().toLocal8Bit();
+   tx_count += send_char.size();
+   TX_count->setNum(tx_count);
+   serial->write(send_char);
+
    // serial->write(ui->textEdit->toPlainText().toUtf8());
 }
 
@@ -162,8 +200,11 @@ void serial_window::Read_Data()
 {
 
    QByteArray buf = serial->readLine();
-    //int byteLen = serial->bytesAvailable()； //返回串口缓冲区字节数
+    //rx_count += serial->bytesAvailable(); //返回串口缓冲区字节数
 
+   //接收计数器
+    rx_count +=buf.size();
+    RX_count->setNum(rx_count);
     if(!buf.isEmpty())//如果数据不为空
     {
        // QString str = ui->textBrowser->toPlainText();  //l继续联接之前的数据追加新的数据
@@ -179,21 +220,25 @@ void serial_window::Read_Data()
               strDisplay += st.toUpper();
               strDisplay += " ";
             }
+            if(ui->auto_linefeed->isChecked())
+            ui->textBrowser->append(strDisplay);
+            else
             ui->textBrowser->insertPlainText(strDisplay);
 
         }
         else if(this->ui->gbk_disp->isChecked())//gbk显示
         {
+           if(ui->auto_linefeed->isChecked())
            ui->textBrowser->append(textcodec->toUnicode(buf));
+           else
+           ui->textBrowser->insertPlainText(textcodec->toUnicode(buf));
         }
         else if(this->ui->utf8_disp->isChecked())//UTF8显示
         {
-           QString bb(buf);
-            ui->textBrowser->insertPlainText(bb);
-        }
-        else if(this->ui->unicode_disp->isChecked())//UTF16显示
-        {
-           ui->textBrowser->insertPlainText(QString::fromLocal8Bit(buf));
+            if(ui->auto_linefeed->isChecked())
+            ui->textBrowser->append(buf);
+            else
+            ui->textBrowser->insertPlainText(buf);
         }
 
     }
@@ -229,7 +274,10 @@ void serial_window::on_checkBox_clicked()
 //hex发送按钮
 void serial_window::on_pushButton_2_clicked()
 {    
-  sendHex(ui->textEdit->toPlainText());
+    QByteArray send_hex = ui->textEdit->toPlainText();
+    tx_count += send_hex.size();
+    TX_count->setNum(tx_count);
+    sendHex(send_hex);
 }
 
 //hex发送函数
