@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>image/huochairen.gif</file>
         <file>image/meinv.png</file>
+        <file>image/mini_adapter.ico</file>
     </qresource>
 </RCC>

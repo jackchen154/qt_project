@@ -65,6 +65,7 @@ serial_window::serial_window(QWidget *parent) :
     ui->send_button1->setEnabled(false);
     ui->send_button2->setEnabled(false);
     ui->send_button3->setEnabled(false);
+
     auto_send_timer =new QTimer();//自动发送定时器
     auto_send_timer->setInterval(ui->send_interval->value());//读取时间间隔
     connect(auto_send_timer,&QTimer::timeout,//时间溢出去扫描哪一个选项被选中，并将选中的内容发送出去
@@ -72,15 +73,18 @@ serial_window::serial_window(QWidget *parent) :
             {
               if(ui->send_check1->isChecked())
               {
-                sendHex(ui->send_input1->text());
+                tx_count += sendHex(ui->send_input1->text());
+                TX_count->setNum(tx_count);
               }
               else if(ui->send_check2->isChecked())
               {
-                sendHex(ui->send_input2->text());
+                tx_count += sendHex(ui->send_input2->text());
+                TX_count->setNum(tx_count);
               }
               else if(ui->send_check3->isChecked())
               {
-                sendHex(ui->send_input3->text());
+                tx_count += sendHex(ui->send_input3->text());
+                TX_count->setNum(tx_count);
                }
             });
 }
@@ -94,10 +98,9 @@ void serial_window::on_openButton_clicked()
 {
     if(ui->openButton->text()==tr("打开串口"))
     {
+
         serial = new QSerialPort;
-
         serial->setPortName(ui->PortBox->currentText());  //设置串口名
-
         serial->setBaudRate(ui->BaudBox->currentText().toInt());   //设置波特率
         switch(ui->BitNumBox->currentText().toInt())  //设置数据位
         {
@@ -154,6 +157,9 @@ void serial_window::on_openButton_clicked()
     }
     else
     {
+        //清除窗口数据
+        //ui->textBrowser->clear();
+        //ui->textEdit->clear();
         //关闭自动发送
         ui->auto_send->setCheckState(Qt::Unchecked);
         auto_send_timer->stop();
@@ -188,7 +194,7 @@ void serial_window::on_openButton_clicked()
 void serial_window::on_sendButton_clicked()
 {
    QByteArray send_char = ui->textEdit->toPlainText().toLocal8Bit();
-   tx_count += send_char.size();
+   tx_count += send_char.size();//char发送计数
    TX_count->setNum(tx_count);
    serial->write(send_char);
 
@@ -273,14 +279,12 @@ void serial_window::on_checkBox_clicked()
 
 //hex发送按钮
 void serial_window::on_pushButton_2_clicked()
-{    
-    QByteArray send_hex = ui->textEdit->toPlainText();
-    tx_count += send_hex.size();
-    TX_count->setNum(tx_count);
-    sendHex(send_hex);
+{        
+    tx_count += sendHex(ui->textEdit->toPlainText());
+    TX_count->setNum(tx_count);//hex发送计数
 }
 
-//hex发送函数
+//hex发送函数，返回发送的字节数量
 int serial_window::sendHex(QString a)
 {
     QByteArray c;
@@ -320,7 +324,7 @@ int serial_window::sendHex(QString a)
           c +=(Converchar2realhex(b.at(0)))*16 + Converchar2realhex(b.at(1));//hex合成
        }
        serial->write(c);
-       return 0;
+       return c.size();//返回Hex字节数量
 }
 
 
@@ -340,19 +344,22 @@ char serial_window::Converchar2realhex(char ch)
 //功能发送按钮1
 void serial_window::on_send_button1_clicked()
 {
-    sendHex(ui->send_input1->text());
+    tx_count += sendHex(ui->send_input1->text());
+    TX_count->setNum(tx_count);
 }
 
 //功能发送按钮2
 void serial_window::on_send_button2_clicked()
 {
-    sendHex(ui->send_input2->text());
+    tx_count += sendHex(ui->send_input2->text());
+    TX_count->setNum(tx_count);
 }
 
 //功能发送按钮3
 void serial_window::on_send_button3_clicked()
 {
-    sendHex(ui->send_input3->text());
+    tx_count += sendHex(ui->send_input3->text());
+    TX_count->setNum(tx_count);
 }
 
 //自动发送按钮

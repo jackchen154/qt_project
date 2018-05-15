@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
      * 6.自定义控件(在UI中使用升级命令)以及使用代码进行布局(QHBoxLayout,QVBoxLayout)
      * 7.使用UI界面进行布局
      */
-    /*
+    //*
     myui ui;
     ui.show();
     //*/
@@ -64,6 +64,9 @@ int main(int argc, char *argv[])
 
     //串口界面
     serial_window Serial_Window;
+    Serial_Window.setWindowTitle("串口助手(by:chenweiming)");
+    QIcon ico("./image/mini_adapter.ico");
+    Serial_Window.setWindowIcon(ico);
     Serial_Window.show();
     return a.exec();
 }
