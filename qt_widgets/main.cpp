@@ -25,11 +25,12 @@ int main(int argc, char *argv[])
      * 10.信号和槽函数和lambd表达式
      * 11.带参数的和不带参数的槽函数
      * 12.发射一个信号进行主窗口和子窗口的切换
-     *
+     * 13.Qfile读取一个TXT文件的例子
+     * 14.用Qfile写一个.txt文件
      */
 
-    //myWidget mainwindow;
-    //mainwindow.show();
+    myWidget mainwindow;
+    mainwindow.show();
     //*/
 
 
@@ -42,7 +43,7 @@ int main(int argc, char *argv[])
      * 6.自定义控件(在UI中使用升级命令)以及使用代码进行布局(QHBoxLayout,QVBoxLayout)
      * 7.使用UI界面进行布局
      */
-    //*
+    /*
     myui ui;
     ui.show();
     //*/
@@ -62,12 +63,13 @@ int main(int argc, char *argv[])
     duihuak.show();
     //*/
 
-    //串口界面
+    /*串口界面
     serial_window Serial_Window;
     Serial_Window.setWindowTitle("串口助手(by:chenweiming)");
     QIcon ico("./image/mini_adapter.ico");
     Serial_Window.setWindowIcon(ico);
     Serial_Window.show();
+    //*/
     return a.exec();
 }
 

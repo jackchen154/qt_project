@@ -45,7 +45,7 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
                  QFile txt_file(dir);//文件所在的路径
                  if(txt_file.open(QIODevice::ReadOnly)==true)//打开文件
                  {
-                     /*
+                     /*读取文件
                      //一次性读取readall,读取文件默认只识别UTF8的编码，其他为乱码
                      QByteArray array = txt_file.readAll();
                      bianjiqu->setText(array);
@@ -65,8 +65,26 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
 
             }
             );//处理按下新建按钮后的动作
+
     cwenjian->addSeparator();//添加一条分割线
-    cwenjian->addAction("保存");//再添加一个菜单项
+    QAction *baocun = cwenjian->addAction("保存");//再添加一个菜单项
+    connect(baocun,&QAction::triggered,
+            [=]()
+            {
+                 QString path = QFileDialog::getSaveFileName(this,"保存","../","TXT(*.txt)");
+                 if(!path.isEmpty())
+                 {
+                     QFile save_txt;//创建文件对象
+                     save_txt.setFileName(path);//关联文件名字
+                     if(save_txt.open(QIODevice::WriteOnly))//打开文件只读方式
+                     {
+                         QString a = "你好123";
+                         save_txt.write(a.toLocal8Bit());//写文件
+                     }
+                     save_txt.close();//关闭文件
+                 }
+
+            });
 
     //工具栏部分(工具栏是菜单项的快捷方式)
     QToolBar *gongjulan =addToolBar("gongjulan");//新建一个工具栏
