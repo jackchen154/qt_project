@@ -23,6 +23,7 @@ public:
     QLabel *RX_count;
     QLabel *TX_count;
     int rx_count=0,tx_count=0;
+    bool stop_receive=1;
     QByteArray QString2Hex(QString str);
     char Converchar2realhex(char ch);
     int sendHex(QString a);
@@ -49,6 +50,8 @@ private slots:
    void on_auto_send_clicked();
 
    void on_send_interval_valueChanged(int arg1);
+   void on_stop_receive_clicked();
+
 private:
     Ui::serial_window *ui;
     QSerialPort *serial;

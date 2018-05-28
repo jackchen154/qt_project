@@ -23,6 +23,7 @@ serial_window::serial_window(QWidget *parent) :
               tx_count=0;
               RX_count->setNum(tx_count);
               TX_count->setNum(tx_count);
+              ui->textBrowser->clear();//清屏
             });
 
     QLabel *RX_txt = new QLabel(this);
@@ -148,7 +149,7 @@ void serial_window::on_openButton_clicked()
         ui->send_button1->setEnabled(true);
         ui->send_button2->setEnabled(true);
         ui->send_button3->setEnabled(true);
-        ui->recive_window->setEnabled(true);
+        //ui->recive_window->setEnabled(true);
         ui->send_window->setEnabled(true);
 
         serial->open(QIODevice::ReadWrite); //打开串口
@@ -183,7 +184,7 @@ void serial_window::on_openButton_clicked()
         ui->send_button1->setEnabled(false);
         ui->send_button2->setEnabled(false);
         ui->send_button3->setEnabled(false);
-        ui->recive_window->setEnabled(false);
+        //ui->recive_window->setEnabled(false);
         ui->send_window->setEnabled(false);
 
     }
@@ -205,20 +206,20 @@ void serial_window::on_sendButton_clicked()
 void serial_window::Read_Data()
 {
 
-   QByteArray buf = serial->readLine();
+   QByteArray buf = serial->readAll();
     //rx_count += serial->bytesAvailable(); //返回串口缓冲区字节数
 
    //接收计数器
     rx_count +=buf.size();
     RX_count->setNum(rx_count);
-    if(!buf.isEmpty())//如果数据不为空
+    if(!buf.isEmpty()&&stop_receive)//如果数据不为空
     {
        // QString str = ui->textBrowser->toPlainText();  //l继续联接之前的数据追加新的数据
         //ui->textBrowser->clear();
         QString strDisplay;
         if(this->ui->Hex_disp->isChecked())  //如果是,就以16进制显示
         {
-           QString str = buf.toHex().data();
+           QString str = buf.toHex();
             for(int i=0;i<str.length();i+=2)
             {
               //strDisplay += "0x";
@@ -227,9 +228,10 @@ void serial_window::Read_Data()
               strDisplay += " ";
             }
             if(ui->auto_linefeed->isChecked())
-            ui->textBrowser->append(strDisplay);
+
+                ui->textBrowser->append(strDisplay);
             else
-            ui->textBrowser->insertPlainText(strDisplay);
+                ui->textBrowser->insertPlainText(strDisplay);
 
         }
         else if(this->ui->gbk_disp->isChecked())//gbk显示
@@ -371,7 +373,7 @@ void serial_window::on_auto_send_clicked()
         auto_send_timer->stop();
 }
 
-//时间设置
+//发送时间设置
 void serial_window::on_send_interval_valueChanged(int arg1)
 {
     auto_send_timer->setInterval(arg1);
@@ -397,3 +399,18 @@ void serial_window::on_send_check3_released()
     auto_send_timer->stop();
 }
 //////////////////////////////////////////////////////////////////////*/
+
+//停止接收
+void serial_window::on_stop_receive_clicked()
+{
+    if(ui->stop_receive->text()=="停止接收")
+    {
+        stop_receive=false;
+        ui->stop_receive->setText("开始接收");
+    }
+    else
+    {
+        stop_receive=true;
+        ui->stop_receive->setText("停止接收");
+    }
+}

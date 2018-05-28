@@ -44,6 +44,7 @@ public:
     QGridLayout *gridLayout;
     QTextBrowser *textBrowser;
     QPushButton *clear;
+    QPushButton *stop_receive;
     QCheckBox *auto_linefeed;
     QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_6;
@@ -87,10 +88,10 @@ public:
     QGroupBox *send_window;
     QGridLayout *gridLayout_3;
     QTextEdit *textEdit;
-    QPushButton *pushButton_2;
     QPushButton *clearsend;
-    QPushButton *sendButton;
     QSpacerItem *horizontalSpacer_2;
+    QPushButton *pushButton_2;
+    QPushButton *sendButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -98,15 +99,15 @@ public:
     {
         if (serial_window->objectName().isEmpty())
             serial_window->setObjectName(QStringLiteral("serial_window"));
-        serial_window->resize(800, 547);
-        serial_window->setMinimumSize(QSize(800, 547));
+        serial_window->resize(959, 547);
+        serial_window->setMinimumSize(QSize(959, 547));
         centralwidget = new QWidget(serial_window);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         gridLayout_4 = new QGridLayout(centralwidget);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
         recive_window = new QGroupBox(centralwidget);
         recive_window->setObjectName(QStringLiteral("recive_window"));
-        recive_window->setEnabled(false);
+        recive_window->setEnabled(true);
         recive_window->setMinimumSize(QSize(451, 285));
         QFont font;
         font.setFamily(QString::fromUtf8("\345\256\213\344\275\223"));
@@ -120,9 +121,9 @@ public:
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         textBrowser = new QTextBrowser(recive_window);
         textBrowser->setObjectName(QStringLiteral("textBrowser"));
-        textBrowser->setMinimumSize(QSize(391, 221));
+        textBrowser->setMinimumSize(QSize(391, 275));
 
-        gridLayout->addWidget(textBrowser, 0, 0, 1, 4);
+        gridLayout->addWidget(textBrowser, 0, 0, 1, 5);
 
         clear = new QPushButton(recive_window);
         clear->setObjectName(QStringLiteral("clear"));
@@ -130,15 +131,21 @@ public:
 
         gridLayout->addWidget(clear, 1, 0, 1, 1);
 
+        stop_receive = new QPushButton(recive_window);
+        stop_receive->setObjectName(QStringLiteral("stop_receive"));
+        stop_receive->setMaximumSize(QSize(75, 23));
+
+        gridLayout->addWidget(stop_receive, 1, 1, 1, 1);
+
         auto_linefeed = new QCheckBox(recive_window);
         auto_linefeed->setObjectName(QStringLiteral("auto_linefeed"));
         auto_linefeed->setMaximumSize(QSize(77, 19));
 
-        gridLayout->addWidget(auto_linefeed, 1, 1, 1, 1);
+        gridLayout->addWidget(auto_linefeed, 1, 2, 1, 1);
 
         horizontalSpacer = new QSpacerItem(78, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addItem(horizontalSpacer, 1, 2, 1, 1);
+        gridLayout->addItem(horizontalSpacer, 1, 3, 1, 1);
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
@@ -164,7 +171,7 @@ public:
         horizontalLayout_6->addWidget(Hex_disp);
 
 
-        gridLayout->addLayout(horizontalLayout_6, 1, 3, 1, 1);
+        gridLayout->addLayout(horizontalLayout_6, 1, 4, 1, 1);
 
 
         gridLayout_4->addWidget(recive_window, 0, 0, 1, 1);
@@ -369,21 +376,15 @@ public:
         send_window = new QGroupBox(centralwidget);
         send_window->setObjectName(QStringLiteral("send_window"));
         send_window->setEnabled(false);
-        send_window->setMinimumSize(QSize(451, 181));
+        send_window->setMaximumSize(QSize(16777215, 141));
         send_window->setFont(font);
         gridLayout_3 = new QGridLayout(send_window);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         textEdit = new QTextEdit(send_window);
         textEdit->setObjectName(QStringLiteral("textEdit"));
-        textEdit->setMinimumSize(QSize(391, 121));
+        textEdit->setMaximumSize(QSize(16777215, 77));
 
         gridLayout_3->addWidget(textEdit, 0, 0, 1, 4);
-
-        pushButton_2 = new QPushButton(send_window);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setMaximumSize(QSize(81, 23));
-
-        gridLayout_3->addWidget(pushButton_2, 1, 2, 1, 1);
 
         clearsend = new QPushButton(send_window);
         clearsend->setObjectName(QStringLiteral("clearsend"));
@@ -391,15 +392,21 @@ public:
 
         gridLayout_3->addWidget(clearsend, 1, 0, 1, 1);
 
+        horizontalSpacer_2 = new QSpacerItem(144, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        gridLayout_3->addItem(horizontalSpacer_2, 1, 1, 1, 1);
+
+        pushButton_2 = new QPushButton(send_window);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setMaximumSize(QSize(81, 23));
+
+        gridLayout_3->addWidget(pushButton_2, 1, 2, 1, 1);
+
         sendButton = new QPushButton(send_window);
         sendButton->setObjectName(QStringLiteral("sendButton"));
         sendButton->setMaximumSize(QSize(81, 23));
 
         gridLayout_3->addWidget(sendButton, 1, 3, 1, 1);
-
-        horizontalSpacer_2 = new QSpacerItem(144, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        gridLayout_3->addItem(horizontalSpacer_2, 1, 1, 1, 1);
 
 
         gridLayout_4->addWidget(send_window, 1, 0, 1, 1);
@@ -407,7 +414,7 @@ public:
         serial_window->setCentralWidget(centralwidget);
         menubar = new QMenuBar(serial_window);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 23));
+        menubar->setGeometry(QRect(0, 0, 959, 23));
         serial_window->setMenuBar(menubar);
         statusbar = new QStatusBar(serial_window);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -423,6 +430,7 @@ public:
         serial_window->setWindowTitle(QApplication::translate("serial_window", "MainWindow", Q_NULLPTR));
         recive_window->setTitle(QApplication::translate("serial_window", "\346\216\245\346\224\266\347\252\227\345\217\243", Q_NULLPTR));
         clear->setText(QApplication::translate("serial_window", "\346\270\205\347\251\272\346\216\245\346\224\266", Q_NULLPTR));
+        stop_receive->setText(QApplication::translate("serial_window", "\345\201\234\346\255\242\346\216\245\346\224\266", Q_NULLPTR));
         auto_linefeed->setText(QApplication::translate("serial_window", "\350\207\252\345\212\250\346\215\242\350\241\214", Q_NULLPTR));
         gbk_disp->setText(QApplication::translate("serial_window", "GBK", Q_NULLPTR));
         utf8_disp->setText(QApplication::translate("serial_window", "UTF8", Q_NULLPTR));
@@ -470,8 +478,8 @@ public:
         label_6->setText(QApplication::translate("serial_window", "\346\257\253\347\247\222", Q_NULLPTR));
         openButton->setText(QApplication::translate("serial_window", "\346\211\223\345\274\200\344\270\262\345\217\243", Q_NULLPTR));
         send_window->setTitle(QApplication::translate("serial_window", "\345\217\221\351\200\201\347\252\227\345\217\243", Q_NULLPTR));
-        pushButton_2->setText(QApplication::translate("serial_window", "HEX\345\217\221\351\200\201", Q_NULLPTR));
         clearsend->setText(QApplication::translate("serial_window", "\346\270\205\347\251\272\345\217\221\351\200\201", Q_NULLPTR));
+        pushButton_2->setText(QApplication::translate("serial_window", "HEX\345\217\221\351\200\201", Q_NULLPTR));
         sendButton->setText(QApplication::translate("serial_window", "\345\255\227\347\254\246\344\270\262\345\217\221\351\200\201", Q_NULLPTR));
     } // retranslateUi
 
