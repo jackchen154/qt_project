@@ -341,12 +341,82 @@ char serial_window::Converchar2realhex(char ch)
             else return (-1);
 }
 
+//hex发送函数，返回发送的字节数量
+int serial_window::sendHex_with_crc(QString a)
+{
+    QByteArray c;
+    int i;
+    for(i=2;i<a.size();i=i+3)
+    {
+        if(a.at(i)!=' ')//格式判断
+        {
+          QMessageBox::warning(this,"格式错误！","16进制数之间请用空格隔开！");
+          ui->auto_send->setCheckState(Qt::Unchecked);
+          auto_send_timer->stop();
+          return -1;
+        }
+    }
 
+    for(i=0;i<a.size();i=i+3)
+    {
+        QByteArray b(a.mid(i,2).toLatin1());
+        if(b.size()!=2)//16进制合法性判断
+        {
+           QMessageBox::warning(this,"格式错误！","请正确书写16进制格式！");
+           ui->auto_send->setCheckState(Qt::Unchecked);
+           auto_send_timer->stop();
+           c.clear();
+           return -1;
+        }
 
+          if(Converchar2realhex(b.at(0))==-1||Converchar2realhex(b.at(1))==-1)//字符合法性判断
+          {
+             QMessageBox::warning(this,"格式错误！","包含不正确字符,字符范围:( 0~9, a~f )");
+             ui->auto_send->setCheckState(Qt::Unchecked);
+             auto_send_timer->stop();
+             c.clear();
+             return -1;
+          }
+          else
+          c +=(Converchar2realhex(b.at(0)))*16 + Converchar2realhex(b.at(1));//hex合成
+       }
+       //加入crc校验
+       unsigned int crc;
+       char *buf = c.data();//QByteArray转char*
+       crc = get_crc((unsigned char*) buf+3,c.size()-3);//获取CRC值
+       c.append(crc&0xff);
+       c.append((crc>>8)&0xff);
+       //c[c.size()]=crc&0xff;
+       //c[c.size()+1]=(crc>>8)&0xff;
+       serial->write(c);
+       return c.size();//返回Hex字节数量
+}
+
+unsigned short serial_window::get_crc(uchar *ptr,uchar len)
+{
+  uchar i;
+  unsigned short crc = 0xFFFF;
+  if(len==0) len=1;
+  while(len--)
+  {
+    crc ^= *ptr;
+    for(i=0;i<8;i++)
+    {
+      if(crc&1)
+      {
+        crc>>=1;
+        crc ^= 0XA001;
+      }
+      else crc >>= 1;
+    }
+    ptr++;
+  }
+  return(crc);
+}
 //功能发送按钮1
 void serial_window::on_send_button1_clicked()
 {
-    tx_count += sendHex(ui->send_input1->text());
+    tx_count += sendHex_with_crc(ui->send_input1->text());
     TX_count->setNum(tx_count);
 }
 

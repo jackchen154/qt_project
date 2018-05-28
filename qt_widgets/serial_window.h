@@ -27,6 +27,8 @@ public:
     QByteArray QString2Hex(QString str);
     char Converchar2realhex(char ch);
     int sendHex(QString a);
+    unsigned short get_crc(uchar *ptr,uchar len);
+    int sendHex_with_crc(QString a);
     ~serial_window();
 
 private slots:
