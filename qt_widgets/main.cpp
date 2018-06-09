@@ -27,6 +27,10 @@ int main(int argc, char *argv[])
      * 12.发射一个信号进行主窗口和子窗口的切换
      * 13.Qfile读取一个TXT文件的例子
      * 14.用Qfile写一个.txt文件
+     * 15.用QFileInfo显示文件的信息
+     * 16.QDataStream数据流读写演示
+     * 17.用QTextStream文本流进行读写操作
+     * 18.用QBuffer内存文件进行读写
      */
 
     myWidget mainwindow;
