@@ -11,7 +11,9 @@ serial_window::serial_window(QWidget *parent) :
     textcodec = QTextCodec::codecForName("GBK");//转码显示
     statusbar_data = new QLabel(this);
     ui->statusbar->addWidget(statusbar_data);//使用addwidget是从左往右添加状态信息
+    texteditcursor = ui->textBrowser->textCursor();
 
+    //发送接收计数器部分
     QPushButton *clear_count = new QPushButton(this);
     clear_count->setText("清零");
     clear_count->setMaximumSize(30,30);
@@ -23,6 +25,7 @@ serial_window::serial_window(QWidget *parent) :
               tx_count=0;
               RX_count->setNum(tx_count);
               TX_count->setNum(tx_count);
+              ui->textBrowser->clear();//清屏
             });
 
     QLabel *RX_txt = new QLabel(this);
@@ -148,7 +151,7 @@ void serial_window::on_openButton_clicked()
         ui->send_button1->setEnabled(true);
         ui->send_button2->setEnabled(true);
         ui->send_button3->setEnabled(true);
-        ui->recive_window->setEnabled(true);
+        //ui->recive_window->setEnabled(true);
         ui->send_window->setEnabled(true);
 
         serial->open(QIODevice::ReadWrite); //打开串口
@@ -183,7 +186,7 @@ void serial_window::on_openButton_clicked()
         ui->send_button1->setEnabled(false);
         ui->send_button2->setEnabled(false);
         ui->send_button3->setEnabled(false);
-        ui->recive_window->setEnabled(false);
+        //ui->recive_window->setEnabled(false);
         ui->send_window->setEnabled(false);
 
     }
@@ -205,20 +208,20 @@ void serial_window::on_sendButton_clicked()
 void serial_window::Read_Data()
 {
 
-   QByteArray buf = serial->readLine();
+   QByteArray buf = serial->readAll();
     //rx_count += serial->bytesAvailable(); //返回串口缓冲区字节数
 
    //接收计数器
     rx_count +=buf.size();
     RX_count->setNum(rx_count);
-    if(!buf.isEmpty())//如果数据不为空
+    if(!buf.isEmpty()&&stop_receive)//如果数据不为空
     {
        // QString str = ui->textBrowser->toPlainText();  //l继续联接之前的数据追加新的数据
         //ui->textBrowser->clear();
         QString strDisplay;
         if(this->ui->Hex_disp->isChecked())  //如果是,就以16进制显示
         {
-           QString str = buf.toHex().data();
+           QString str = buf.toHex();
             for(int i=0;i<str.length();i+=2)
             {
               //strDisplay += "0x";
@@ -227,10 +230,19 @@ void serial_window::Read_Data()
               strDisplay += " ";
             }
             if(ui->auto_linefeed->isChecked())
-            ui->textBrowser->append(strDisplay);
+            {
+                ui->textBrowser->append(strDisplay);
+                //自动滚屏
+                texteditcursor.movePosition(QTextCursor::End);
+                ui->textBrowser->setTextCursor(texteditcursor);
+            }
             else
-            ui->textBrowser->insertPlainText(strDisplay);
-
+            {
+                ui->textBrowser->insertPlainText(strDisplay);
+                //自动滚屏
+                texteditcursor.movePosition(QTextCursor::End);
+                ui->textBrowser->setTextCursor(texteditcursor);
+            }
         }
         else if(this->ui->gbk_disp->isChecked())//gbk显示
         {
@@ -339,12 +351,82 @@ char serial_window::Converchar2realhex(char ch)
             else return (-1);
 }
 
+//hex发送函数，返回发送的字节数量
+int serial_window::sendHex_with_crc(QString a)
+{
+    QByteArray c;
+    int i;
+    for(i=2;i<a.size();i=i+3)
+    {
+        if(a.at(i)!=' ')//格式判断
+        {
+          QMessageBox::warning(this,"格式错误！","16进制数之间请用空格隔开！");
+          ui->auto_send->setCheckState(Qt::Unchecked);
+          auto_send_timer->stop();
+          return -1;
+        }
+    }
 
+    for(i=0;i<a.size();i=i+3)
+    {
+        QByteArray b(a.mid(i,2).toLatin1());
+        if(b.size()!=2)//16进制合法性判断
+        {
+           QMessageBox::warning(this,"格式错误！","请正确书写16进制格式！");
+           ui->auto_send->setCheckState(Qt::Unchecked);
+           auto_send_timer->stop();
+           c.clear();
+           return -1;
+        }
 
+          if(Converchar2realhex(b.at(0))==-1||Converchar2realhex(b.at(1))==-1)//字符合法性判断
+          {
+             QMessageBox::warning(this,"格式错误！","包含不正确字符,字符范围:( 0~9, a~f )");
+             ui->auto_send->setCheckState(Qt::Unchecked);
+             auto_send_timer->stop();
+             c.clear();
+             return -1;
+          }
+          else
+          c +=(Converchar2realhex(b.at(0)))*16 + Converchar2realhex(b.at(1));//hex合成
+       }
+       //加入crc校验
+       unsigned int crc;
+       char *buf = c.data();//QByteArray转char*
+       crc = get_crc((unsigned char*) buf+3,c.size()-3);//获取CRC值
+       c.append(crc&0xff);
+       c.append((crc>>8)&0xff);
+       //c[c.size()]=crc&0xff;
+       //c[c.size()+1]=(crc>>8)&0xff;
+       serial->write(c);
+       return c.size();//返回Hex字节数量
+}
+
+unsigned short serial_window::get_crc(uchar *ptr,uchar len)
+{
+  uchar i;
+  unsigned short crc = 0xFFFF;
+  if(len==0) len=1;
+  while(len--)
+  {
+    crc ^= *ptr;
+    for(i=0;i<8;i++)
+    {
+      if(crc&1)
+      {
+        crc>>=1;
+        crc ^= 0XA001;
+      }
+      else crc >>= 1;
+    }
+    ptr++;
+  }
+  return(crc);
+}
 //功能发送按钮1
 void serial_window::on_send_button1_clicked()
 {
-    tx_count += sendHex(ui->send_input1->text());
+    tx_count += sendHex_with_crc(ui->send_input1->text());
     TX_count->setNum(tx_count);
 }
 
@@ -371,7 +453,7 @@ void serial_window::on_auto_send_clicked()
         auto_send_timer->stop();
 }
 
-//时间设置
+//发送时间设置
 void serial_window::on_send_interval_valueChanged(int arg1)
 {
     auto_send_timer->setInterval(arg1);
@@ -397,3 +479,18 @@ void serial_window::on_send_check3_released()
     auto_send_timer->stop();
 }
 //////////////////////////////////////////////////////////////////////*/
+
+//停止接收
+void serial_window::on_stop_receive_clicked()
+{
+    if(ui->stop_receive->text()=="停止接收")
+    {
+        stop_receive=false;
+        ui->stop_receive->setText("开始接收");
+    }
+    else
+    {
+        stop_receive=true;
+        ui->stop_receive->setText("停止接收");
+    }
+}

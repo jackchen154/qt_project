@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
      * 17.用QTextStream文本流进行读写操作
      * 18.用QBuffer内存文件进行读写
      */
-
+    /*/
     myWidget mainwindow;
     mainwindow.show();
     //*/
@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
     duihuak.show();
     //*/
 
-    /*串口界面
+    //*串口界面
     serial_window Serial_Window;
     Serial_Window.setWindowTitle("串口助手(by:chenweiming)");
     QIcon ico("./image/mini_adapter.ico");

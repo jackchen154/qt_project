@@ -5,6 +5,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QTextCodec>
+#include <QTextCursor>
 #include <QLabel>
 #include <QTimer>
 namespace Ui {
@@ -22,10 +23,14 @@ public:
     QTextCodec *textcodec;
     QLabel *RX_count;
     QLabel *TX_count;
+    QTextCursor texteditcursor;
     int rx_count=0,tx_count=0;
+    bool stop_receive=1;
     QByteArray QString2Hex(QString str);
     char Converchar2realhex(char ch);
     int sendHex(QString a);
+    unsigned short get_crc(uchar *ptr,uchar len);
+    int sendHex_with_crc(QString a);
     ~serial_window();
 
 private slots:
@@ -49,6 +54,8 @@ private slots:
    void on_auto_send_clicked();
 
    void on_send_interval_valueChanged(int arg1);
+   void on_stop_receive_clicked();
+
 private:
     Ui::serial_window *ui;
     QSerialPort *serial;
