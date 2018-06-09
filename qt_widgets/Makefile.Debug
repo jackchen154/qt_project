@@ -17,13 +17,13 @@ CXXFLAGS      = -pipe -fno-keep-inline-dllexport -g -std=gnu++11 -frtti -Wall -W
 INCPATH       = -I. -IC:\Qt\Qt5.8.0\5.8\mingw53_32\include -IC:\Qt\Qt5.8.0\5.8\mingw53_32\include\QtWidgets -IC:\Qt\Qt5.8.0\5.8\mingw53_32\include\QtGui -IC:\Qt\Qt5.8.0\5.8\mingw53_32\include\QtANGLE -IC:\Qt\Qt5.8.0\5.8\mingw53_32\include\QtSerialPort -IC:\Qt\Qt5.8.0\5.8\mingw53_32\include\QtCore -Idebug -I. -IC:\Qt\Qt5.8.0\5.8\mingw53_32\mkspecs\win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        -lmingw32 -LC:\Qt\Qt5.8.0\5.8\mingw53_32\lib C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libqtmaind.a -LC:\utils\my_sql\my_sql\lib -LC:\utils\postgresql\pgsql\lib -lshell32 C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libQt5Widgetsd.a C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libQt5Guid.a C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libQt5SerialPortd.a C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libQt5Cored.a 
+LIBS        =        -lmingw32 -LC:\Qt\Qt5.8.0\5.8\mingw53_32\lib C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libqtmaind.a -LC:\utils\my_sql\my_sql\lib -LC:\utils\postgresql\pgsql\lib -lshell32 C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libQt5Widgetsd.a C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libQt5Guid.a C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libQt5SerialPortd.a C:\Qt\Qt5.8.0\5.8\mingw53_32\lib\libQt5Cored.a debug\qt_widgets_resource_res.o 
 QMAKE         = C:\Qt\Qt5.8.0\5.8\mingw53_32\bin\qmake.exe
 IDC           = idc
 IDL           = midl
 ZIP           = zip -r -9
 DEF_FILE      = 
-RES_FILE      = 
+RES_FILE      = debug\qt_widgets_resource_res.o
 COPY          = copy /y
 SED           = $(QMAKE) -install sed
 COPY_FILE     = copy /y
@@ -93,8 +93,11 @@ DESTDIR_TARGET = debug\qt_widgets.exe
 first: all
 all: Makefile.Debug  $(DESTDIR_TARGET)
 
-$(DESTDIR_TARGET): ui_myui.h ui_dialog.h ui_serial_window.h $(OBJECTS) 
+$(DESTDIR_TARGET): ui_myui.h ui_dialog.h ui_serial_window.h $(OBJECTS) debug/qt_widgets_resource_res.o
 	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) object_script.qt_widgets.Debug  $(LIBS)
+
+debug/qt_widgets_resource_res.o: qt_widgets_resource.rc
+	windres -i qt_widgets_resource.rc -o debug\qt_widgets_resource_res.o --include-dir=. $(DEFINES)
 
 qmake: FORCE
 	@$(QMAKE) -o Makefile.Debug qt_widgets.pro -spec win32-g++
@@ -106,6 +109,7 @@ dist:
 
 clean: compiler_clean 
 	-$(DEL_FILE) debug\main.o debug\mywidget.o debug\subwidgets.o debug\myui.o debug\zidgyikongjian.o debug\dialog.o debug\serial_window.o debug\qrc_myresource.o debug\moc_mywidget.o debug\moc_subwidgets.o debug\moc_myui.o debug\moc_zidgyikongjian.o debug\moc_dialog.o debug\moc_serial_window.o
+	-$(DEL_FILE) debug\qt_widgets_resource_res.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -814,6 +818,11 @@ debug/moc_serial_window.cpp: C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMai
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtSerialPort/qserialportinfo.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QTextCodec \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qtextcodec.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/QTextCursor \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextcursor.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextformat.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpen.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextoption.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QLabel \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlabel.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qframe.h \
@@ -1087,6 +1096,7 @@ debug/main.o: main.cpp mywidget.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtSerialPort/qserialportinfo.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QTextCodec \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qtextcodec.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/QTextCursor \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QLabel \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlabel.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QTimer \
@@ -1949,6 +1959,11 @@ debug/serial_window.o: serial_window.cpp serial_window.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtSerialPort/qserialportinfo.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/QTextCodec \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qtextcodec.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/QTextCursor \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextcursor.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextformat.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpen.h \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextoption.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QLabel \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlabel.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qframe.h \
@@ -2000,10 +2015,6 @@ debug/serial_window.o: serial_window.cpp serial_window.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtCore/qitemselectionmodel.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QLineEdit \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qlineedit.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextcursor.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextformat.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qpen.h \
-		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtGui/qtextoption.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/QMenuBar \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qmenubar.h \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/include/QtWidgets/qmenu.h \

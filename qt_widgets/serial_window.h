@@ -5,6 +5,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 #include <QTextCodec>
+#include <QTextCursor>
 #include <QLabel>
 #include <QTimer>
 namespace Ui {
@@ -22,6 +23,7 @@ public:
     QTextCodec *textcodec;
     QLabel *RX_count;
     QLabel *TX_count;
+    QTextCursor texteditcursor;
     int rx_count=0,tx_count=0;
     bool stop_receive=1;
     QByteArray QString2Hex(QString str);

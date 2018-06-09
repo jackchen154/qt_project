@@ -11,7 +11,9 @@ serial_window::serial_window(QWidget *parent) :
     textcodec = QTextCodec::codecForName("GBK");//转码显示
     statusbar_data = new QLabel(this);
     ui->statusbar->addWidget(statusbar_data);//使用addwidget是从左往右添加状态信息
+    texteditcursor = ui->textBrowser->textCursor();
 
+    //发送接收计数器部分
     QPushButton *clear_count = new QPushButton(this);
     clear_count->setText("清零");
     clear_count->setMaximumSize(30,30);
@@ -228,11 +230,19 @@ void serial_window::Read_Data()
               strDisplay += " ";
             }
             if(ui->auto_linefeed->isChecked())
-
+            {
                 ui->textBrowser->append(strDisplay);
+                //自动滚屏
+                texteditcursor.movePosition(QTextCursor::End);
+                ui->textBrowser->setTextCursor(texteditcursor);
+            }
             else
+            {
                 ui->textBrowser->insertPlainText(strDisplay);
-
+                //自动滚屏
+                texteditcursor.movePosition(QTextCursor::End);
+                ui->textBrowser->setTextCursor(texteditcursor);
+            }
         }
         else if(this->ui->gbk_disp->isChecked())//gbk显示
         {
