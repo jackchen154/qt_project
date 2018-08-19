@@ -1,4 +1,5 @@
 #include "mywidget.h"
+#include <QDebug>//可以打印调试信息到控制台
 #include <QMenuBar>//添加一个菜单栏(空的)
 #include <QMenu>//向空白菜单栏添加菜单内容
 #include <QToolBar>//添加一个工具栏
@@ -9,11 +10,17 @@
 #include <QMessageBox>//创建一个标准对话框(带按钮的)
 #include <QFileDialog>//创建一个文件对话框(用于选择文件，返回一个字符串)
 #include <QAction>//处理动作信号
+#include <QFile>//文件操作
+#include <QFileInfo>//显示文件的信息
+#include <QDateTime>//用于时间转换
+#include <QDataStream>//数据流操作(最终以二进制的格式进行读写)
+#include <QTextStream>//文本流操作(只能操作文本，在读写文本时可以指定文字的编码格式)
+#include <QBuffer>//内存文件，数据保存在内存中
 #include <QFileDialog>
 #include <QLabel>
 #include <QPushButton>
-#include <QDebug>//可以打印调试信息到控制台
-#include <QFile>
+//定义一个调试输出时显示所在的行
+#define cout qDebug()<<"[ File:"<<__FILE__<<' '<<"Line:"<<__LINE__<<']'
 
 myWidget::myWidget(QWidget *parent): QMainWindow(parent)
 {
@@ -34,12 +41,24 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
     //菜单栏部分
     QMenuBar *caidanlan =menuBar();//新建一个菜单栏
     QMenu *cwenjian = caidanlan->addMenu("文件");//添加菜单
-    QAction *xinjianac= cwenjian->addAction("打开");//添加菜单项，并返回一个动作
-    connect(xinjianac,&QAction::triggered,
+    QAction *dakaiac= cwenjian->addAction("打开");//添加菜单项，并返回一个动作
+    //使用文件对话框打开一个文件，并读取里面的内容
+    connect(dakaiac,&QAction::triggered,
             [=]()
             {
-              QString dir = QFileDialog::getOpenFileName(this,"打开","../",
+              QString dir = QFileDialog::getOpenFileName(this,"打开","C:/Users/jack/Desktop",
                                                          "TXT(*.txt);;WORLD(.wold)");
+              QFileInfo info(dir);//显示文件信息
+              QString info_str = QString("文件名：[%1]  "
+                                         "文件后缀：[%2]  "
+                                         "文件大小：[%3]  "
+                                         "创建时间：[%4]  ")
+                                         .arg(info.fileName())
+                                         .arg(info.suffix())
+                                         .arg(info.size())
+                                         .arg(info.created().toString("yyyy-MM-dd"));
+              statusbar_data->setText(info_str);//在状态栏中打印文件的信息
+
               if(!dir.isEmpty())//判断是否有该文件
               {
                  QFile txt_file(dir);//文件所在的路径
@@ -57,8 +76,8 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
                      {
                          array += txt_file.readLine();//循环读取1行
                      }
-
-                    bianjiqu->setText(array);//将读取完毕的数据丢到文本编辑区
+                    QString txt=QString::fromLocal8Bit(array);//gb2312转换为utf8
+                    bianjiqu->setText(txt);//将读取完毕的数据丢到文本编辑区
                  }
                  txt_file.close();//关闭文件
               }
@@ -78,32 +97,27 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
                      save_txt.setFileName(path);//关联文件名字
                      if(save_txt.open(QIODevice::WriteOnly))//打开文件只读方式
                      {
-                         QString a = "你好123";
+                         QString a = wenbenbjq1->toPlainText();//将文本编辑区的内容加到a中
                          save_txt.write(a.toLocal8Bit());//写文件
                      }
                      save_txt.close();//关闭文件
                  }
-
             });
 
     //工具栏部分(工具栏是菜单项的快捷方式)
     QToolBar *gongjulan =addToolBar("gongjulan");//新建一个工具栏
     //A：
-    gongjulan->addAction(xinjianac);//在工具栏上添加一个快捷方式
+    gongjulan->addAction(dakaiac);//在工具栏上添加一个快捷方式
     //B：
-    QPushButton *anniu = new QPushButton(this);
-    anniu->setText("^o^");
+    anniu = new QPushButton(this);
+    anniu->setText("文本流写入");
     gongjulan->addWidget(anniu);//在工具栏添加一个按钮小控件
-    connect(anniu,&QPushButton::clicked,
-            [=]()
-            {
-               anniu->setText("@_@");
-            }
-            );//控件按下执行的事件
+    connect(anniu,&QPushButton::clicked,this,&myWidget::text_stream_contr);
+
 
     //状态栏部分
     QStatusBar *zhuangtailan =statusBar();//添加一个状态栏
-    QLabel *statusbar_data = new QLabel(this);
+    statusbar_data = new QLabel(this);
     statusbar_data->setText("enpty file 空白 123");
     zhuangtailan->addWidget(statusbar_data);//使用addwidget是从左往右添加状态信息
     //B:
@@ -119,7 +133,7 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
     //浮动窗口部分
     QDockWidget *fudongchuagk = new QDockWidget(this);
     addDockWidget(Qt::RightDockWidgetArea,fudongchuagk);
-    QTextEdit *wenbenbjq1 =new QTextEdit(this);
+    wenbenbjq1 =new QTextEdit(this);
     fudongchuagk->setWidget(wenbenbjq1);//向浮动窗口添加一个文本编辑区
 
 
@@ -212,7 +226,7 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
 
     //按钮2
     b2= new QPushButton(this);//通过构造函数传参指定父对象
-    b2->setText("切换文字");
+    b2->setText("数据流写入");
 
     //按钮3
     b3.setParent(this);
@@ -245,7 +259,7 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
     this                 :信号接收者
     &myWidget::close     :槽函数，也就是信号处理函数 &这个接收者属于哪个类的::槽函数名字
     */
-    connect(b2,&QPushButton::released,this,&myWidget::anxia_b2);//处理自定义槽函数
+    connect(b2,&QPushButton::released,this,&myWidget::data_stream_contr);//处理自定义槽函数
     /*
     自定义槽，和普通函数的用法相同
     1. QT5支持的槽函数可以是：任意的成员函数，普通全局函数，静态函数
@@ -314,8 +328,8 @@ myWidget::myWidget(QWidget *parent): QMainWindow(parent)
             [=](bool button_status) mutable
             {
                a = 789;
-               qDebug()<<"aaaaa "<<a<<" "<<b;
-               qDebug()<<"the button status is:"<<button_status;
+               cout<<"aaaaa "<<a<<" "<<b;
+               cout<<"the button status is:"<<button_status;
             });
 
 
@@ -338,17 +352,80 @@ void myWidget::chuli_sub()//自定义的槽函数子窗口的处理函数
     subwindow.hide();
 }
 
-void myWidget::anxia_b2()//自定义的槽函数
+//QDataStream数据流读写演示
+void myWidget::data_stream_contr()//自定义的槽函数
 {
-    if(b2_state==0)
+    if(b2->text()=="数据流写入")
     {
-        b2->setText("123");
-        b2_state=1;
+
+        QFile file("../stream.txt");//创建文件对象
+        if(file.open(QIODevice::WriteOnly)==1)//打开文件
+        {
+           QDataStream stream(&file); //创建一个数据流并指定输入对象(往数据流里面写东西相当于往文件里写)
+           //向数据流写入东西使用cout的方法使用<<
+           stream << QString("我是数据流格式") << 1580;//按照顺序向数据流分别写入一个字符串和一个整形数据
+           file.close();
+           statusbar_data->setText("数据流写入成功！");
+        }
+        else
+            statusbar_data->setText("数据流写入失败！");
+        b2->setText("数据流读取");
     }
-    else
-     {
-        b2->setText("切换文字");
-        b2_state=0;
+    else//数据流读取部分
+    {
+        QFile file("../stream.txt");//创建文件对象
+        if(file.open(QIODevice::ReadOnly)==1)//打开文件
+        {
+           QDataStream stream(&file); //创建一个数据流并指定输入对象(往数据流里面读东西相当于往文件里读)
+
+           QString str;
+           int value;
+           //向数据流读取使用cout的方法使用>>,怎么写的就怎么读出来,顺序不能相反
+           stream >> str >> value;
+           file.close();
+           statusbar_data->setText(QString("数据流读取成功！ Qstring:%1  Int:%2").arg(str).arg(value));
+        }
+        else
+            statusbar_data->setText("数据流写入失败！");
+        b2->setText("数据流写入");
+    }
+}
+
+//文本流读写
+void myWidget::text_stream_contr()
+{
+    if(anniu->text()=="文本流写入")
+    {
+
+        QFile file("../text_stream.txt");//创建文件对象
+        if(file.open(QIODevice::WriteOnly)==1)//打开文件
+        {
+           QTextStream stream(&file); //创建一个文本流并指定输入对象(往数据流里面写东西相当于往文件里写)
+           //指定文本流的编码格式
+           stream.setCodec("UTF-8");
+           //向文本流写入东西使用cout的方法使用<<
+           stream << QString("我是文本流格式") << 1580;//按照顺序向数据流分别写入一个字符串和一个整形数据
+           file.close();
+           statusbar_data->setText("文本流写入成功！");
+        }
+        else
+            statusbar_data->setText("文本流写入失败！");
+        anniu->setText("文本流读取");
+    }
+    else//数据流读取部分
+    {
+        QFile file("../text_stream.txt");//创建文件对象
+        if(file.open(QIODevice::ReadOnly)==1)//打开文件
+        {
+           QTextStream stream(&file); //创建一个数据流并指定输入对象(往数据流里面读东西相当于往文件里读)
+           stream.setCodec("UTF-8");
+           //文本流的读取不能像数据流那样可以区分字符串和整型数据，读出来的全部是字符
+           QString buf = stream.readAll();
+           statusbar_data->setText(buf);
+        }
+        else
+            statusbar_data->setText("文本流读取失败！");
+        b2->setText("文本流写入");
     }
 }
 
