@@ -97,6 +97,7 @@ serial_window::~serial_window()
     delete ui;
 }
 
+
 void serial_window::on_openButton_clicked()
 {
     if(ui->openButton->text()==tr("打开串口"))
