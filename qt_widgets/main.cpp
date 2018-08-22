@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
      * 17.用QTextStream文本流进行读写操作
      * 18.用QBuffer内存文件进行读写
      */
-    /*/
+    /*
     myWidget mainwindow;
     mainwindow.show();
     //*/
@@ -46,8 +46,9 @@ int main(int argc, char *argv[])
      * 5.进度条的操作(setMinimum,setMaximum,setValue)
      * 6.自定义控件(在UI中使用升级命令)以及使用代码进行布局(QHBoxLayout,QVBoxLayout)
      * 7.使用UI界面进行布局
+     * 8.进行QThread多线程的操作
      */
-    /*
+    //*
     myui ui;
     ui.show();
     //*/
@@ -67,7 +68,7 @@ int main(int argc, char *argv[])
     duihuak.show();
     //*/
 
-    //*串口界面
+    /*串口界面
     serial_window Serial_Window;
     Serial_Window.setWindowTitle("串口助手(by:chenweiming)");
     QIcon ico("./image/mini_adapter.ico");

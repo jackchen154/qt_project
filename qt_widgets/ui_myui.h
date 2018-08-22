@@ -22,6 +22,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -52,20 +53,16 @@ public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_4;
     QFrame *frame;
+    QGridLayout *gridLayout_6;
+    QPushButton *guanbi;
     QGridLayout *gridLayout_2;
+    QLCDNumber *lcdNumber;
+    QPushButton *pushButton_4;
+    QPushButton *pushButton_5;
     QDial *dial;
     QScrollBar *verticalScrollBar;
-    QVBoxLayout *verticalLayout;
-    QHBoxLayout *horizontalLayout_6;
-    QPushButton *guanbi;
     QLabel *label_html;
-    QSpacerItem *horizontalSpacer_7;
-    QHBoxLayout *horizontalLayout_5;
-    QSpacerItem *horizontalSpacer_3;
     QDateTimeEdit *dateTimeEdit;
-    QSpacerItem *horizontalSpacer_5;
-    QHBoxLayout *horizontalLayout_4;
-    QSpacerItem *horizontalSpacer;
     QDateEdit *dateEdit;
     QTimeEdit *timeEdit;
     QDoubleSpinBox *doubleSpinBox;
@@ -84,6 +81,7 @@ public:
     QLabel *label;
     QLabel *label_tupain;
     zidgyikongjian *widget_3;
+    QGridLayout *gridLayout_5;
     QWidget *widget;
     QHBoxLayout *horizontalLayout_3;
     QVBoxLayout *verticalLayout_2;
@@ -129,98 +127,96 @@ public:
         frame->setObjectName(QStringLiteral("frame"));
         frame->setFrameShape(QFrame::StyledPanel);
         frame->setFrameShadow(QFrame::Raised);
-        gridLayout_2 = new QGridLayout(frame);
+        gridLayout_6 = new QGridLayout(frame);
+        gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
+        guanbi = new QPushButton(frame);
+        guanbi->setObjectName(QStringLiteral("guanbi"));
+
+        gridLayout_6->addWidget(guanbi, 0, 0, 1, 1);
+
+        gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        lcdNumber = new QLCDNumber(frame);
+        lcdNumber->setObjectName(QStringLiteral("lcdNumber"));
+        lcdNumber->setMinimumSize(QSize(177, 47));
+
+        gridLayout_2->addWidget(lcdNumber, 0, 0, 1, 2);
+
+        pushButton_4 = new QPushButton(frame);
+        pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
+        pushButton_4->setMinimumSize(QSize(75, 0));
+
+        gridLayout_2->addWidget(pushButton_4, 1, 0, 1, 1);
+
+        pushButton_5 = new QPushButton(frame);
+        pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
+        pushButton_5->setMinimumSize(QSize(75, 0));
+
+        gridLayout_2->addWidget(pushButton_5, 1, 1, 1, 1);
+
+
+        gridLayout_6->addLayout(gridLayout_2, 0, 1, 2, 3);
+
         dial = new QDial(frame);
         dial->setObjectName(QStringLiteral("dial"));
         dial->setMinimumSize(QSize(100, 100));
 
-        gridLayout_2->addWidget(dial, 0, 1, 1, 1);
+        gridLayout_6->addWidget(dial, 0, 4, 2, 1);
 
         verticalScrollBar = new QScrollBar(frame);
         verticalScrollBar->setObjectName(QStringLiteral("verticalScrollBar"));
         verticalScrollBar->setOrientation(Qt::Vertical);
 
-        gridLayout_2->addWidget(verticalScrollBar, 0, 2, 1, 1);
-
-        verticalLayout = new QVBoxLayout();
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        horizontalLayout_6 = new QHBoxLayout();
-        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        guanbi = new QPushButton(frame);
-        guanbi->setObjectName(QStringLiteral("guanbi"));
-
-        horizontalLayout_6->addWidget(guanbi);
+        gridLayout_6->addWidget(verticalScrollBar, 0, 5, 1, 1);
 
         label_html = new QLabel(frame);
         label_html->setObjectName(QStringLiteral("label_html"));
 
-        horizontalLayout_6->addWidget(label_html);
-
-        horizontalSpacer_7 = new QSpacerItem(119, 14, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_6->addItem(horizontalSpacer_7);
-
-
-        verticalLayout->addLayout(horizontalLayout_6);
-
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        horizontalSpacer_3 = new QSpacerItem(134, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_5->addItem(horizontalSpacer_3);
+        gridLayout_6->addWidget(label_html, 1, 0, 1, 1);
 
         dateTimeEdit = new QDateTimeEdit(frame);
         dateTimeEdit->setObjectName(QStringLiteral("dateTimeEdit"));
 
-        horizontalLayout_5->addWidget(dateTimeEdit);
-
-        horizontalSpacer_5 = new QSpacerItem(131, 17, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_5->addItem(horizontalSpacer_5);
-
-
-        verticalLayout->addLayout(horizontalLayout_5);
-
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        horizontalSpacer = new QSpacerItem(134, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout_4->addItem(horizontalSpacer);
+        gridLayout_6->addWidget(dateTimeEdit, 2, 0, 1, 1);
 
         dateEdit = new QDateEdit(frame);
         dateEdit->setObjectName(QStringLiteral("dateEdit"));
 
-        horizontalLayout_4->addWidget(dateEdit);
+        gridLayout_6->addWidget(dateEdit, 2, 1, 1, 1);
 
         timeEdit = new QTimeEdit(frame);
         timeEdit->setObjectName(QStringLiteral("timeEdit"));
 
-        horizontalLayout_4->addWidget(timeEdit);
+        gridLayout_6->addWidget(timeEdit, 2, 2, 1, 1);
 
         doubleSpinBox = new QDoubleSpinBox(frame);
         doubleSpinBox->setObjectName(QStringLiteral("doubleSpinBox"));
 
-        horizontalLayout_4->addWidget(doubleSpinBox);
+        gridLayout_6->addWidget(doubleSpinBox, 2, 3, 1, 1);
 
         spinBox = new QSpinBox(frame);
         spinBox->setObjectName(QStringLiteral("spinBox"));
 
-        horizontalLayout_4->addWidget(spinBox);
+        gridLayout_6->addWidget(spinBox, 2, 4, 1, 1);
 
-
-        verticalLayout->addLayout(horizontalLayout_4);
-
-
-        gridLayout_2->addLayout(verticalLayout, 0, 0, 1, 1);
-
+        label_html->raise();
+        dateTimeEdit->raise();
+        dateEdit->raise();
+        timeEdit->raise();
+        doubleSpinBox->raise();
+        spinBox->raise();
         verticalScrollBar->raise();
         dial->raise();
+        guanbi->raise();
+        lcdNumber->raise();
+        pushButton_4->raise();
+        pushButton_5->raise();
 
         gridLayout_4->addWidget(frame, 0, 0, 1, 2);
 
         jindutiao = new QProgressBar(centralwidget);
         jindutiao->setObjectName(QStringLiteral("jindutiao"));
+        jindutiao->setMaximumSize(QSize(152, 16777215));
         jindutiao->setValue(50);
 
         gridLayout_4->addWidget(jindutiao, 0, 2, 1, 1);
@@ -290,6 +286,8 @@ public:
         widget_3 = new zidgyikongjian(centralwidget);
         widget_3->setObjectName(QStringLiteral("widget_3"));
         widget_3->setMinimumSize(QSize(0, 109));
+        gridLayout_5 = new QGridLayout(widget_3);
+        gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
 
         gridLayout_4->addWidget(widget_3, 1, 1, 1, 2);
 
@@ -432,6 +430,8 @@ public:
         actiond->setText(QApplication::translate("myui", "\344\277\235\345\255\230", Q_NULLPTR));
         actionfff->setText(QApplication::translate("myui", "\345\211\252\345\210\207", Q_NULLPTR));
         guanbi->setText(QApplication::translate("myui", "\345\205\263\351\227\255", Q_NULLPTR));
+        pushButton_4->setText(QApplication::translate("myui", "\347\272\277\347\250\213\346\211\223\345\274\200", Q_NULLPTR));
+        pushButton_5->setText(QApplication::translate("myui", "\347\272\277\347\250\213\345\205\263\351\227\255", Q_NULLPTR));
         label_html->setText(QApplication::translate("myui", "TextLabel", Q_NULLPTR));
         label_3->setText(QApplication::translate("myui", "<html><head/><body><p>\346\200\247\345\210\253      \357\274\232</p></body></html>", Q_NULLPTR));
         label_2->setText(QApplication::translate("myui", "<html><head/><body><p>\350\257\267\350\276\223\345\205\245\345\247\223\345\220\215\357\274\232</p></body></html>", Q_NULLPTR));

@@ -33,7 +33,8 @@ SOURCES += \
     myui.cpp \
     zidgyikongjian.cpp \
     dialog.cpp \
-    serial_window.cpp
+    serial_window.cpp \
+    timerthread.cpp
 
 HEADERS += \
         mywidget.h \
@@ -41,7 +42,8 @@ HEADERS += \
     myui.h \
     zidgyikongjian.h \
     dialog.h \
-    serial_window.h
+    serial_window.h \
+    timerthread.h
 
 CONFIG += C++11
 
