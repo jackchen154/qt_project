@@ -41,8 +41,55 @@
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="1">
+      <layout class="QGridLayout" name="gridLayout_6">
+       <item row="0" column="0">
+        <widget class="QPushButton" name="guanbi">
+         <property name="text">
+          <string>关闭</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" rowspan="2" colspan="3">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0" colspan="2">
+          <widget class="QLCDNumber" name="lcdNumber">
+           <property name="minimumSize">
+            <size>
+             <width>177</width>
+             <height>47</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="pushButton_4">
+           <property name="minimumSize">
+            <size>
+             <width>75</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>线程打开</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="pushButton_5">
+           <property name="minimumSize">
+            <size>
+             <width>75</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>线程关闭</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="4" rowspan="2">
         <widget class="QDial" name="dial">
          <property name="minimumSize">
           <size>
@@ -52,124 +99,58 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="2">
+       <item row="0" column="5">
         <widget class="QScrollBar" name="verticalScrollBar">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_6">
-           <item>
-            <widget class="QPushButton" name="guanbi">
-             <property name="text">
-              <string>关闭</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_html">
-             <property name="text">
-              <string>TextLabel</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>119</width>
-               <height>14</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_5">
-           <item>
-            <spacer name="horizontalSpacer_3">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>134</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QDateTimeEdit" name="dateTimeEdit"/>
-           </item>
-           <item>
-            <spacer name="horizontalSpacer_5">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>131</width>
-               <height>17</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-          </layout>
-         </item>
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
-           <item>
-            <spacer name="horizontalSpacer">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Fixed</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>134</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item>
-            <widget class="QDateEdit" name="dateEdit"/>
-           </item>
-           <item>
-            <widget class="QTimeEdit" name="timeEdit"/>
-           </item>
-           <item>
-            <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
-           </item>
-           <item>
-            <widget class="QSpinBox" name="spinBox"/>
-           </item>
-          </layout>
-         </item>
-        </layout>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_html">
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QDateTimeEdit" name="dateTimeEdit"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QDateEdit" name="dateEdit"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QTimeEdit" name="timeEdit"/>
+       </item>
+       <item row="2" column="3">
+        <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+       </item>
+       <item row="2" column="4">
+        <widget class="QSpinBox" name="spinBox"/>
        </item>
       </layout>
+      <zorder>label_html</zorder>
+      <zorder>dateTimeEdit</zorder>
+      <zorder>dateEdit</zorder>
+      <zorder>timeEdit</zorder>
+      <zorder>doubleSpinBox</zorder>
+      <zorder>spinBox</zorder>
       <zorder>verticalScrollBar</zorder>
       <zorder>dial</zorder>
-      <zorder></zorder>
+      <zorder>guanbi</zorder>
+      <zorder>lcdNumber</zorder>
+      <zorder>pushButton_4</zorder>
+      <zorder>pushButton_5</zorder>
      </widget>
     </item>
     <item row="0" column="2">
      <widget class="QProgressBar" name="jindutiao">
+      <property name="maximumSize">
+       <size>
+        <width>152</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <property name="value">
        <number>50</number>
       </property>
@@ -281,6 +262,7 @@
         <height>109</height>
        </size>
       </property>
+      <layout class="QGridLayout" name="gridLayout_5"/>
      </widget>
     </item>
     <item row="2" column="0" colspan="4">

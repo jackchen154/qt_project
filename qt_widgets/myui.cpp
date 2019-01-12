@@ -5,6 +5,7 @@
 #include <QCompleter>//用于文本补全
 #include <QStringList>//字符串列表
 #include <QMovie>//用于播放gif动画
+#include <QThread>
 myui::myui(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::myui)
@@ -46,6 +47,17 @@ myui::myui(QWidget *parent) :
     //样式表
     ui->textEdit->setText("请输入文字：");
     ui->textEdit->setStyleSheet("background-color:green;color:bule;font:75 15pt Aharoni;");
+
+    //多线程操作
+
+      myT = new timerThread;//创建线程对象不指定父对象
+      thread = new QThread(this);//创建一个子线程对象
+      myT ->moveToThread(thread);//将自定义线程与子线程进行绑定
+      connect(this,&myui::starthreadsingal,myT,&timerThread::mytimer);//启动线程的信号槽
+      connect(myT,&timerThread::timersignal,this,&myui::dealtimersignal);//处理线程发过来的信号
+      connect(this,&myui::destroyed,this,&myui::dealclosethread);
+      thread->start();//打开线程但没有打开线程处理函数
+
 }
 
 myui::~myui()
@@ -53,6 +65,19 @@ myui::~myui()
     delete ui;
 }
 
+void myui::dealclosethread()
+{
+    myT->stopthrad(1);//关闭while循环
+    thread->quit();//线程的退出
+    thread->wait();//资源的回收
+    delete myT;
+}
+
+void myui::dealtimersignal()
+{
+    ui->lcdNumber->display(jishuqi);
+    jishuqi++;
+}
 
 
 void myui::on_pushButton_clicked()
@@ -66,4 +91,21 @@ void myui::on_pushButton_3_clicked()
 {
    QString str = ui->password->text();//获取行编辑器的输入值
    qDebug()<<str;
+}
+
+//当按下开启线程的按钮
+void myui::on_pushButton_4_clicked()
+{
+    myT->stopthrad(0);
+    thread->start();//打开线程但没有打开线程处理函数
+    emit starthreadsingal();
+}
+
+//按下关闭线程的按钮
+void myui::on_pushButton_5_clicked()
+{
+    myT->stopthrad(1);//关闭while循环
+    thread->quit();//线程的退出
+    thread->wait();//资源的回收
+
 }
